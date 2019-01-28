@@ -22,6 +22,7 @@ FSSIM is developed by [Juraj Kabzan](https://www.linkedin.com/in/juraj-kabzan-14
 7. The terminal will inform you what is happening. The loading time takes around 20 seconds. When `Sending RES GO` will show up in the terminal, you can start controlling the vehicle with `/fssim/cmd` topic.
 
 # Combine it with simple FSD skeleton Framework and drive a lap
+0. Install `sudo apt install ros-kinetic-desktop-full` and `sudo apt install python-catkin-tools`
 1. [Clone the AMZ skeleton workspace](https://github.com/AMZ-Driverless/fsd_skeleton#setting-up-the-workspace).
 2. Run `./update_dependencies.sh -f` from `fsd_skeleton`, you will need to approve multiple packages to be installed
 3. Compile with `catkin build`
