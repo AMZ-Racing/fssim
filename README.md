@@ -9,7 +9,7 @@ This simulator is developed and tested on **Ubuntu 16.04 and ROS Kinetic** and b
 
 The more extensive tutorial can be found under [Wiki](fssim_doc/index.md)
 
-FSSIM is developed by [Juraj Kabzan](mailto:kabzanj@gmail.com) as part of our work at [AMZ-Driverless](http://driverless.amzracing.ch/).
+FSSIM is developed by [Juraj Kabzan](https://www.linkedin.com/in/juraj-kabzan-143698a1/) as part of our work at [AMZ-Driverless](http://driverless.amzracing.ch/).
 
 # How to Run It in your Workspace
 1. Clone this repository to an existing **ROS Workspace** initialized with `catkin init`
