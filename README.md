@@ -12,6 +12,7 @@ The more extensive tutorial can be found under [Wiki](fssim_doc/index.md)
 FSSIM is developed by [Juraj Kabzan](https://www.linkedin.com/in/juraj-kabzan-143698a1/) as part of our work at [AMZ-Driverless](http://driverless.amzracing.ch/).
 
 # How to Run It in your Workspace
+0. Install `sudo apt install ros-kinetic-desktop-full` and `sudo apt install python-catkin-tools`
 1. Clone this repository to an existing **ROS Workspace** initialized with `catkin init`
 2. Run `cd src/fssim` from the workspace.
 3. Run `./update_dependencies.sh`, you will need to approve multiple packages to be installed
