@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<model>
+  <name>track</name>
+  <version>1.0</version>
+  <sdf version="1.4">$(arg track_name)</sdf>
+  <description>random track</description>
+</model>

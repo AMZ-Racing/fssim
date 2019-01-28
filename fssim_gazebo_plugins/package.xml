@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+<package format="2">
+    <name>fssim_gazebo_plugins</name>
+    <version>1.0.0</version>
+    <description>The fssim_gazebo_plugins package</description>
+
+    <maintainer email="kabzanj@gmail.com">Juraj Kabzan</maintainer>
+    <license>MIT</license>
+
+    <buildtool_depend>catkin</buildtool_depend>
+
+    <build_depend>fssim_common</build_depend>
+    <build_depend>gazebo_msgs</build_depend>
+    <build_depend>roscpp</build_depend>
+    <build_depend>sensor_msgs</build_depend>
+    <build_depend>visualization_msgs</build_depend>
+    <build_depend>nav_msgs</build_depend>
+    <build_depend>tf</build_depend>
+    <build_depend>libpcl-all-dev</build_depend>
+
+    <build_export_depend>fssim_common</build_export_depend>
+    <build_export_depend>gazebo_msgs</build_export_depend>
+    <build_export_depend>roscpp</build_export_depend>
+    <build_export_depend>tf</build_export_depend>
+
+    <exec_depend>fssim_common</exec_depend>
+    <exec_depend>gazebo_msgs</exec_depend>
+    <exec_depend>roscpp</exec_depend>
+    <exec_depend>nav_msgs</exec_depend>
+    <exec_depend>tf</exec_depend>
+
+    <depend>pcl_ros</depend>
+    <depend>libpcl-all</depend>
+    <depend>fssim-pcl-ros</depend>
+
+    <!-- The export tag contains other, unspecified, tags -->
+    <export>
+        <!-- Other tools can request additional information be placed here -->
+
+    </export>
+</package>

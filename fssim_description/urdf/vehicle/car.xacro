@@ -1,0 +1,52 @@
+<?xml version="1.0"?>
+<robot name="$(arg robot_name)" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+    <xacro:property name="robot_sensors" value="${load_yaml('$(arg sensors_config_file)')}"/>
+    <xacro:property name="car_settings" value="${load_yaml('$(arg car_config_file)')}"/>
+    <xacro:property name="dist" value="${load_yaml('$(arg car_dimensions_file)')}"/>
+
+    <!-- Additional Includes -->
+    <xacro:include filename="$(find fssim_description)/urdf/vehicle/vehicle_friction.gazebo"/>
+    <xacro:include filename="$(find fssim_description)/urdf/vehicle/materials.xacro"/>
+    <xacro:include filename="$(find fssim_description)/urdf/vehicle/vehicle_body.xacro"/>
+    <xacro:include filename="$(find fssim_description)/urdf/vehicle/sensors.xacro"/>
+    <xacro:include filename="$(find fssim_description)/urdf/vehicle/plugins.gazebo"/>
+
+    <!-- ################################################################## -->
+    <!-- ############################# Chassis ############################ -->
+    <!-- ################################################################## -->
+    <xacro:body_chassis/>
+
+    <!-- ################################################################## -->
+    <!-- #### Add the left rear wheel with its joints and tranmissions #### -->
+    <!-- ################################################################## -->
+    <xacro:body_left_rear_wheel/>
+
+    <!-- ################################################################### -->
+    <!-- #### Add the right rear wheel with its joints and tranmissions #### -->
+    <!-- ################################################################### -->
+    <xacro:body_right_rear_wheel/>
+
+    <!-- ############################################################################## -->
+    <!-- #### Add the left front wheel with its joints, steering and tranmissions #### -->
+    <!-- ############################################################################## -->
+    <xacro:body_left_front_wheel/>
+
+    <!-- ############################################################################## -->
+    <!-- #### Add the right front wheel with its joints, steering and tranmissions #### -->
+    <!-- ############################################################################## -->
+    <xacro:body_right_front_wheel/>
+
+    <!-- ############################################################################## -->
+    <!-- ################################### Sensors ################################## -->
+    <!-- ############################################################################## -->
+
+    <xacro:if value="${robot_sensors['sensors']['lidar_pipeline']['enabled']}">
+        <xacro:lidar_pipeline/>
+    </xacro:if>
+
+    <xacro:if value="${robot_sensors['sensors']['camera_pipeline']['enabled']}">
+        <xacro:camera_pipeline/>
+    </xacro:if>
+
+</robot>

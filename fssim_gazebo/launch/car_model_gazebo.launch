@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<launch>
+    <arg name="robot_name"          default="fluela" />
+    <arg name="sensors_config_file" default="$(find fssim_description)/cars/$(arg robot_name)/config/sensors.yaml"/>
+    <arg name="car_config_file"     default="$(find fssim_description)/cars/$(arg robot_name)/config/car.yaml"/>
+    <arg name="car_dimensions_file" default="$(find fssim_description)/cars/$(arg robot_name)/config/distances.yaml"/>
+
+    <!-- Vehicle Model -->
+    <include file="$(find fssim_description)/launch/vehicle_model.launch">
+        <arg name="robot_name" value="$(arg robot_name)"/>
+        <arg name="sensors_config_file" value="$(arg sensors_config_file)"/>
+        <arg name="car_config_file" value="$(arg car_config_file)"/>
+        <arg name="car_dimensions_file" value="$(arg car_dimensions_file)"/>
+    </include>
+
+    <!-- push robot_description to factory and spawn robot in gazebo -->
+    <node args="-urdf -param robot_description -model $(arg robot_name) -z 0.5 "
+          name="urdf_spawner_$(arg robot_name)"
+          output="screen"
+          pkg="gazebo_ros"
+          respawn="false"
+          type="spawn_model"/>
+
+</launch>

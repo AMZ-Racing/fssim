@@ -1,0 +1,206 @@
+<?xml version="1.0"?>
+<robot name="$(arg robot_name)" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+    <xacro:include filename="$(find fssim_description)/urdf/vehicle/inertias.xacro"/>
+
+    <xacro:macro name="body_chassis">
+
+        <link name="base_link">
+        </link>
+
+        <joint name="base_link_cog_joint" type="fixed">
+            <parent link="base_link"/>
+            <child link="cog"/>
+            <origin xyz="${dist['base_link']['cog']['x']}
+                         ${dist['base_link']['cog']['y']}
+                         ${dist['base_link']['cog']['z']}"
+                    rpy="0 0 0"/>
+        </joint>
+
+        <link name="cog" type="fixed">
+            <inertial>
+                <mass value="1"/>
+                <inertia ixx="0.001" ixy="0.0" ixz="0.0" iyy="0.001" iyz="0.0" izz="0.001"/>
+            </inertial>
+        </link>
+
+        <joint name="base_link_joint" type="fixed">
+            <parent link="cog"/>
+            <child link="chassis"/>
+            <origin xyz="${dist['cog']['chassis']['x']}
+                   ${dist['cog']['chassis']['y']}
+                   ${dist['cog']['chassis']['z']}"
+                    rpy="0 0 0"/>
+            <axis xyz="1 0 0"/>
+        </joint>
+
+        <link name="chassis">
+            <collision name="chassis">
+                <xacro:chassis_geometry/>
+            </collision>
+            <visual>
+                <xacro:chassis_geometry/>
+                <material name="grey"/>
+            </visual>
+            <inertial>
+                <xacro:chassis_inertial_params/>
+            </inertial>
+        </link>
+    </xacro:macro>
+
+    <xacro:macro name="body_left_rear_wheel">
+        <joint name="rear_left_wheel_joint" type="continuous">
+            <origin xyz="${dist['chassis']['left_rear_wheel_joint']['x']}
+                       ${dist['chassis']['left_rear_wheel_joint']['y']}
+                       ${dist['chassis']['left_rear_wheel_joint']['z']}"
+                    rpy="0 0 0"/>
+            <parent link="chassis"/>
+            <child link="left_rear_wheel"/>
+            <axis xyz="0 1 0"/>
+        </joint>
+
+        <link name="left_rear_wheel">
+            <inertial>
+                <xacro:wheels_inertia/>
+            </inertial>
+            <visual>
+                <xacro:wheels_geometry/>
+                <material name="black"/>
+            </visual>
+            <collision name="left_rear_wheel_collision">
+                <geometry>
+                    <sphere radius="0.225"/>
+                </geometry>
+            </collision>
+        </link>
+        <gazebo reference="left_rear_wheel">
+            <material>Gazebo/Black</material>
+        </gazebo>
+    </xacro:macro>
+
+    <xacro:macro name="body_right_rear_wheel">
+        <joint name="rear_right_wheel_joint" type="continuous">
+            <parent link="chassis"/>
+            <child link="right_rear_wheel"/>
+            <origin xyz="${dist['chassis']['right_rear_wheel_joint']['x']}
+                       ${dist['chassis']['right_rear_wheel_joint']['y']}
+                       ${dist['chassis']['right_rear_wheel_joint']['z']}"
+                    rpy="0 0 0"/>
+            <axis xyz="0 1 0"/>
+        </joint>
+
+        <link name="right_rear_wheel">
+            <inertial>
+                <xacro:wheels_inertia/>
+            </inertial>
+            <visual>
+                <xacro:wheels_geometry/>
+                <material name="black"/>
+            </visual>
+            <collision name="right_rear_wheel_collision">
+                <geometry>
+                    <sphere radius="0.225"/>
+                </geometry>
+            </collision>
+        </link>
+        <gazebo reference="right_rear_wheel">
+            <material>Gazebo/Black</material>
+        </gazebo>
+    </xacro:macro>
+
+    <xacro:macro name="body_left_front_wheel">
+        <joint name="left_steering_hinge_joint" type="revolute">
+            <origin xyz="${dist['chassis']['left_steering_hinge_joint']['x']}
+                       ${dist['chassis']['left_steering_hinge_joint']['y']}
+                       ${dist['chassis']['left_steering_hinge_joint']['z']}"
+                    rpy="0 0 0"/>
+            <parent link="chassis"/>
+            <child link="left_steering_hinge"/>
+            <axis xyz="0 0 1"/>
+            <limit lower="-0.8727" upper="0.8727" effort="10000000" velocity="1000000"/>
+        </joint>
+
+        <link name="left_steering_hinge">
+            <inertial>
+                <xacro:steering_hinge_inertial_params/>
+            </inertial>
+            <visual>
+                <xacro:steering_hinge_geometry/>
+                <material name="black"/>
+            </visual>
+        </link>
+
+        <joint name="front_left_wheel_joint" type="continuous">
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+            <parent link="left_steering_hinge"/>
+            <child link="left_front_wheel"/>
+            <axis xyz="0 1 0"/>
+        </joint>
+
+        <link name="left_front_wheel">
+            <inertial>
+                <xacro:wheels_inertia/>
+            </inertial>
+            <visual>
+                <xacro:wheels_geometry/>
+                <material name="black"/>
+            </visual>
+            <collision name="left_front_wheel_collision">
+                <geometry>
+                    <sphere radius="0.225"/>
+                </geometry>
+            </collision>
+        </link>
+        <gazebo reference="left_front_wheel">
+            <material>Gazebo/Black</material>
+        </gazebo>
+    </xacro:macro>
+
+    <xacro:macro name="body_right_front_wheel">
+        <joint name="right_steering_hinge_joint" type="revolute">
+            <parent link="chassis"/>
+            <child link="right_steering_hinge"/>
+            <axis xyz="0 0 1"/>
+            <origin xyz="${dist['chassis']['right_steering_hinge']['x']}
+                       ${dist['chassis']['right_steering_hinge']['y']}
+                       ${dist['chassis']['right_steering_hinge']['z']}" rpy="0 0 0"/>
+            <limit lower="-0.8727" upper="0.8727" effort="10000000" velocity="1000000"/>
+        </joint>
+
+        <link name="right_steering_hinge">
+            <inertial>
+                <xacro:steering_hinge_inertial_params/>
+            </inertial>
+            <visual>
+                <xacro:steering_hinge_geometry/>
+            </visual>
+        </link>
+
+        <joint name="front_right_wheel_joint" type="continuous">
+            <origin xyz="0 0 0"
+                    rpy="0 0 0"/>
+            <parent link="right_steering_hinge"/>
+            <child link="right_front_wheel"/>
+            <axis xyz="0 1 0"/>
+        </joint>
+
+        <link name="right_front_wheel">
+            <inertial>
+                <xacro:wheels_inertia/>
+            </inertial>
+            <visual>
+                <xacro:wheels_geometry/>
+                <material name="black"/>
+            </visual>
+            <collision name="right_front_wheel_collision">
+                <geometry>
+                    <sphere radius="0.225"/>
+                </geometry>
+            </collision>
+        </link>
+        <gazebo reference="right_front_wheel">
+            <material>Gazebo/Black</material>
+        </gazebo>
+    </xacro:macro>
+
+</robot>

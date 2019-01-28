@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>fssim_description</name>
+  <version>0.0.0</version>
+  <description>The fssim_description package</description>
+  <maintainer email="kabzanj@gmail.com">Juraj Kabzan</maintainer>
+
+  <license>MIT</license>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <depend>gazebo_ros</depend>
+ 
+  <exec_depend>fake_localization</exec_depend>
+  <exec_depend>joy</exec_depend>
+  <exec_depend>robot_state_publisher</exec_depend>
+  <exec_depend>rospy</exec_depend>
+  <exec_depend>sensor_msgs</exec_depend>
+ 
+
+  <!-- The export tag contains other, unspecified, tags -->
+  <export>
+    <!-- Other tools can request additional information be placed here -->
+    <gazebo_ros plugin_path="${prefix}/lib" gazebo_media_path="${prefix}" gazebo_model_path="${prefix}/models"/>
+  </export>
+</package>

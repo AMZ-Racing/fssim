@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<launch>
+    <arg name="robot_name" default="gotthard" />
+    <arg name="world_name" default="$(find fssim_gazebo)/worlds/track.world"/>
+
+    <arg name="sensors_config_file" default="$(find fssim_description)/cars/$(arg robot_name)/config/sensors.yaml"/>
+    <arg name="car_config_file"     default="$(find fssim_description)/cars/$(arg robot_name)/config/car.yaml"/>
+    <arg name="car_dimensions_file" default="$(find fssim_description)/cars/$(arg robot_name)/config/distances.yaml"/>
+
+    <!-- Gazebo -->
+    <include file="$(find gazebo_ros)/launch/empty_world.launch">
+        <arg name="verbose" value="true"/>
+        <arg name="world_name" value="$(arg world_name)"/>
+        <arg name="gui" value="false"/>
+        <arg name="debug" value="false"/>
+    </include>
+
+    <!-- Model -->
+    <include file="$(find fssim_gazebo)/launch/car_model_gazebo.launch">
+        <arg name="robot_name" value="$(arg robot_name)"/>
+        <arg name="sensors_config_file" value="$(arg sensors_config_file)"/>
+        <arg name="car_config_file" value="$(arg car_config_file)"/>
+        <arg name="car_dimensions_file" value="$(arg car_dimensions_file)"/>
+    </include>
+
+</launch>

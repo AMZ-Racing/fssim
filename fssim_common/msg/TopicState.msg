@@ -1,0 +1,4 @@
+string topic_name
+float32 expected_frequency
+float32 measured_frequency
+bool passed

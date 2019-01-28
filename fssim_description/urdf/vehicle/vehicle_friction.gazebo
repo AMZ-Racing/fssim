@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<robot name="$(arg robot_name)" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+    <!-- ############################################## -->
+    <!-- ################### Wheels ################### -->
+    <!-- ############################################## -->
+    <xacro:property name="friction" value="2"/>
+
+    <gazebo reference="left_rear_wheel">
+        <mu1>${friction}</mu1>
+        <mu2>${friction}</mu2>
+        <!-- <minDepth>0.005</minDepth> -->
+        <kp>1e8</kp>
+    </gazebo>
+
+    <gazebo reference="right_rear_wheel">
+        <mu1>${friction}</mu1>
+        <mu2>${friction}</mu2>
+        <!-- <minDepth>0.005</minDepth> -->
+        <kp>1e8</kp>
+    </gazebo>
+
+    <gazebo reference="left_front_wheel">
+        <mu1>${friction}</mu1>
+        <mu2>${friction}</mu2>
+        <!-- <minDepth>0.005</minDepth> -->
+        <kp>1e8</kp>
+    </gazebo>
+
+    <gazebo reference="right_front_wheel">
+        <mu1>${friction}</mu1>
+        <mu2>${friction}</mu2>
+        <!-- <minDepth>0.005</minDepth> -->
+        <kp>1e8</kp>
+    </gazebo>
+
+</robot>

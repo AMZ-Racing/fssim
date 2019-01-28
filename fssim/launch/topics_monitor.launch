@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<launch>
+    <arg name="topics_frequency_config" default="$(find fssim)/config/topics_frequency.yaml"/>
+
+    <node pkg="fssim" name="topics_monitor" type="topics_monitor.py" output="screen">
+        <param name="topics_frequency_config" value="$(arg topics_frequency_config)"/>
+    </node>
+</launch>

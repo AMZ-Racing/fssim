@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>fssim_common</name>
+  <version>0.0.0</version>
+  <description>The fssim_common package</description>
+
+  <maintainer email="kabzanj@gmail.com">Juraj Kabzan</maintainer>
+
+  <license>MIT</license>
+
+  <!-- Dependencies which this package needs to build itself. -->
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <!-- Dependencies needed to compile this package. -->
+  <build_depend>message_generation</build_depend>
+  <build_depend>geometry_msgs</build_depend>
+  <build_depend>octomap_msgs</build_depend>
+  <build_depend>cmake_modules</build_depend>
+
+  <!-- Dependencies needed after this package is compiled. -->
+  <exec_depend>message_runtime</exec_depend>
+</package>

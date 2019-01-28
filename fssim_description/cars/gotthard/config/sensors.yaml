@@ -1,0 +1,118 @@
+# AMZ-Driverless
+# Copyright (c) 2018 Authors:
+#   - Juraj Kabzan <kabzanj@gmail.com>
+#
+# Permission is hereby granted, free of charge, to any person obtaining a copy
+# of this software and associated documentation files (the "Software"), to deal
+# in the Software without restriction, including without limitation the rights
+# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+# copies of the Software, and to permit persons to whom the Software is
+# furnished to do so, subject to the following conditions:
+#
+# The above copyright notice and this permission notice shall be included in all
+# copies or substantial portions of the Software.
+#
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+# AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+# SOFTWARE.
+
+# All positions (pos) are with respect to chassis origin
+
+stream_track:
+  enabled: true
+  markers: "/fssim/track"
+
+
+sensors:
+  lidar:
+    enabled: false
+    topic: lidar/raw
+    pos:
+      x: 0.75
+      y: 0.0
+      z: 0.15
+
+  velocity:
+    noise_vx_sigma:  0.01                # Sigma of gaussian noise on respectible velocity estimate
+    noise_vy_sigma:  0.01                # Sigma of gaussian noise on respectible velocity estimate 
+    noise_r_sigma:   0.01                # Sigma of gaussian noise on respectible velocity estimate
+
+  lidar_pipeline:
+    enabled: true
+    node_name: lidar_pipeline             # This name MUST BE the SAME to this section yaml file
+    topic_name: /lidar/cones              # Where should the cones be published
+
+    overwrite:
+      enabled: true
+      frame: fssim/vehicle/base_link      # Frame the cones are represented in
+
+    rate: 10                              # Publishing frequency [Hz]
+
+    delay: 
+      time: 0.2                           # Delay [s]
+      noise_sigma: 0.002                  # Additive gassian noise on delay 
+
+
+    cut_cones_below_x:            -1      # Cut cones that are further than this distance in x car axis
+
+    observation_radius:           15.0    # Below this threshold we can observe cones [m]
+    distance_dependent_observation: 100.0 # The probability of observation decreases with factor = -1/distance_dependent_misclass * r + 1
+    observation_likelihood_left:  1.0     # Likelihood of observing left              [0..1]
+    observation_likelihood_right: 1.0     # Likelihood of observing right             [0..1]
+    observation_likelihood_orange: 1.0    # Likelihood of observing right             [0..1]
+    
+    color_observation_radius:     10.0    # We can obser color only below this threshild [m]
+    distance_dependent_misclass:  200.0   # The probability of color observation decreases with factor = -1/distance_dependent_misclass * r + 1
+    likelihood_yellow:            0.8     # Likelihood of observic color of cones left  [0..1]
+    likelihood_blue:              0.8     # Likelihood of observic color of cones right [0..1]
+    likelihood_orange:            0.8     # Likelihood of observic color of cones right [0..1]
+
+    gaussian_noise_xy_mu:         0.0     # Mean of Gaussian noise on [x,y] cone position
+    gaussian_noise_xy_sigma:      0.0     # Variance of Gaussian noise on [x,y] cone position
+
+    gaussian_noise_mu_radial:     0.0     # Mean of Gaussian noise on r (cone position is described with [r,\theta]) cone position (radial coordinates)
+    gaussian_noise_sigma_radial:  0.05    # Variance of Gaussian noise on r (cone position is described with [r,\theta]) cone position (radial coordinates)
+
+    gaussian_noise_mu_angular:    0.00    # Mean of Gaussian noise on \theta (cone position is described with [r,\theta]) cone position (radial coordinates)
+    gaussian_noise_sigma_angular: 0.007   # Variance of Gaussian noise on r (cone position is described with [r,\theta]) cone position (radial coordinates)
+
+  camera_pipeline:
+    enabled: true
+    node_name: camera_pipeline
+    topic_name: /camera/cones
+    overwrite:
+      enabled: true
+      frame: fssim/vehicle/base_link      # Frame the cones are represented in
+
+    rate: 10                              # Publishing frequency [Hz]
+
+    delay: 
+      time: 0.2                           # Delay [s]
+      noise_sigma: 0.002                  # Additive gassian noise on delay 
+
+    cut_cones_below_x:            -1      # Cut cones that are further than this distance in x car axis
+
+    observation_radius:           10.0    # Below this threshold we can observe cones [m]
+    distance_dependent_observation: 100.0 # The probability of observation decreases with factor = -1/distance_dependent_misclass * r + 1
+    observation_likelihood_left:  1.0     # Likelihood of observing left              [0..1]
+    observation_likelihood_right: 1.0     # Likelihood of observing right             [0..1]
+    observation_likelihood_orange: 1.0    # Likelihood of observing right             [0..1]
+    
+    color_observation_radius:     10.0    # We can obser color only below this threshild [m]
+    distance_dependent_misclass:  200.0   # The probability of color observation decreases with factor = -1/distance_dependent_misclass * r + 1
+    likelihood_yellow:            0.99     # Likelihood of observic color of cones left  [0..1]
+    likelihood_blue:              0.99     # Likelihood of observic color of cones right [0..1]
+    likelihood_orange:            0.99     # Likelihood of observic color of cones right [0..1]
+
+    gaussian_noise_xy_mu:         0.0     # Mean of Gaussian noise on [x,y] cone position
+    gaussian_noise_xy_sigma:      0.0     # Variance of Gaussian noise on [x,y] cone position
+
+    gaussian_noise_mu_radial:     0.0     # Mean of Gaussian noise on r (cone position is described with [r,\theta]) cone position (radial coordinates)
+    gaussian_noise_sigma_radial:  0.2    # Variance of Gaussian noise on r (cone position is described with [r,\theta]) cone position (radial coordinates)
+
+    gaussian_noise_mu_angular:    0.00    # Mean of Gaussian noise on \theta (cone position is described with [r,\theta]) cone position (radial coordinates)
+    gaussian_noise_sigma_angular: 0.007   # Variance of Gaussian noise on r (cone position is described with [r,\theta]) cone position (radial coordinates)

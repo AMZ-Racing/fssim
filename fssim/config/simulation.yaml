@@ -1,0 +1,51 @@
+# AMZ-Driverless
+# Copyright (c) 2018 Authors:
+#   - Juraj Kabzan <kabzanj@gmail.com>
+#
+# Permission is hereby granted, free of charge, to any person obtaining a copy
+# of this software and associated documentation files (the "Software"), to deal
+# in the Software without restriction, including without limitation the rights
+# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+# copies of the Software, and to permit persons to whom the Software is
+# furnished to do so, subject to the following conditions:
+#
+# The above copyright notice and this permission notice shall be included in all
+# copies or substantial portions of the Software.
+#
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+# AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+# SOFTWARE.
+
+
+simulation_name: "FSSIM 1.0"
+
+robot_name: gotthard  # Name of the robot [string]
+kill_after: 6000      # After this time, repetition is stopped [s]
+
+pkg_config_storage: fssim_description # If relative path is given in following config files, the path will be taken
+                                    # wrt to this package
+# Config files for repetitions
+repetitions:
+- {sensors_config_file: cars/gotthard/config/sensors.yaml, track_name: FSG.sdf, autonomous_stack: }
+
+# Checks which must be true in order to automatically press RES GO
+res:
+  checks:
+    is_in_track: true
+
+# Launch files for autonomous missions
+launch_file:
+  rosbag_record: 
+
+####################################
+######## Possible Tracks ###########
+####################################
+# FSG.sdf 
+# FSI.sdf
+# thin.sdf 
+# skidpad.sdf 
+# acceleration.sdf 

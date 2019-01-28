@@ -1,0 +1,5 @@
+<launch>
+  <arg name="bag_save_path" default="../rosbags"/> <!-- Relative to ROS_HOME (default ~/.ros) dir -->
+
+  <node pkg="rosbag" type="record" name="rosbag_record_pip"  output="screen" args=" -a"/>
+</launch>

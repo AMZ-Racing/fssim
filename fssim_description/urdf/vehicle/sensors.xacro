@@ -1,0 +1,49 @@
+<?xml version="1.0"?>
+<robot name="$(arg robot_name)" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+    <xacro:include filename="$(find fssim_description)/urdf/vehicle/sensors_links.xacro"/>
+
+    <xacro:property name="sensors" value="${robot_sensors['sensors']}"/>
+
+    <xacro:macro name="lidar_pipeline">
+        <!-- Sensor links and fixed joints -->
+        <link name="front_center_lidar_link">
+            <inertial>
+                <mass value="1"/>
+                <inertia ixx="0.001" ixy="0.0" ixz="0.0" iyy="0.001" iyz="0.0" izz="0.001"/>
+            </inertial>
+        </link>
+        <joint name="front_center_lidar_joint" type="fixed">
+            <parent link="chassis"/>
+            <child link="front_center_lidar_link"/>
+            <origin xyz="${sensors['lidar']['pos']['x']} 0.0 0.15" rpy="0 0 0"/>
+        </joint>
+        
+        <gazebo>
+            <plugin name="lidar_pipeline" filename="libgazebo_cone_sensor.so">
+                <yaml_config>$(arg sensors_config_file)</yaml_config>
+                <base_link>/fssim/vehicle/base_link</base_link>
+                <node_name>${sensors['lidar_pipeline']['node_name']}</node_name>
+            </plugin>
+        </gazebo>
+    </xacro:macro>
+
+    <xacro:macro name="camera_pipeline">
+        <gazebo>
+            <plugin name="camera_pipeline" filename="libgazebo_cone_sensor.so">
+                <yaml_config>$(arg sensors_config_file)</yaml_config>
+                <base_link>/fssim/vehicle/base_link</base_link>
+                <node_name>${sensors['camera_pipeline']['node_name']}</node_name>
+            </plugin>
+        </gazebo>
+    </xacro:macro>
+
+    <xacro:macro name="stereo_pipeline">
+        <gazebo>
+            <plugin name="stereo_pipeline" filename="libgazebo_cone_sensor.so">
+                <yaml_config>$(arg sensors_config_file)</yaml_config>
+                <node_name>${sensors['stereo_pipeline']['node_name']}</node_name>
+            </plugin>
+        </gazebo>
+    </xacro:macro>
+</robot>

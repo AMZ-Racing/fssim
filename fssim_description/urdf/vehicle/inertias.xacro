@@ -1,0 +1,81 @@
+<?xml version="1.0"?>
+<robot name="$(arg robot_name)" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+<!-- inertial parameter macros -->
+<xacro:property name="tyre_mass" value="5"/>
+
+<xacro:property name="base_mass" value="140"/>
+<xacro:property name="base_x" value="-0.69"/>
+<xacro:property name="base_y" value="0"/>
+<xacro:property name="base_z" value="0.1"/>
+
+<xacro:property name="PI" value="3.1415926835897931"/>
+
+
+<xacro:macro name="chassis_inertial_params">
+  <origin xyz="${base_x} ${base_y} ${base_z}" rpy="0 0 0" />
+  <mass value="${base_mass}" />
+  <inertia 
+    ixx="16.3"
+    ixy="0"          
+    ixz="0"
+    iyy="33.6"
+    iyz="0"
+    izz="47.9" />
+</xacro:macro>
+
+<xacro:macro name="wheels_inertia">
+  <origin xyz="0 0 0" rpy="0 0 0" />
+  <mass value="${tyre_mass}"/>
+  <inertia 
+    ixx="0.3"
+    ixy="0" 
+    ixz="0" 
+    iyy="0.2"
+    iyz="0" 
+    izz="0.2"   />
+</xacro:macro>
+
+<xacro:macro name="steering_hinge_inertial_params">
+  <origin xyz="0 0 0" rpy="0 0 0" />
+  <mass value="1" />
+  <inertia
+    ixx="0.004"
+    ixy="0" 
+    ixz="0" 
+    iyy="0.004"
+    iyz="0" 
+    izz="0.004"   />
+</xacro:macro>
+
+
+<!-- geometry macros -->
+<xacro:macro name="chassis_geometry">
+  <geometry>
+    <mesh filename="package://fssim_description/cars/$(arg robot_name)/meshes/whole_car.stl" scale = "0.001 0.001 0.001" />
+  </geometry>
+</xacro:macro>
+
+<xacro:macro name="wheels_geometry">
+  <geometry>
+    <mesh filename="package://fssim_description/cars/$(arg robot_name)/meshes/wheel.stl"/>
+  </geometry>
+</xacro:macro>
+
+<xacro:macro name="steering_hinge_geometry">
+  <geometry>
+    <mesh filename="package://fssim_description/cars/$(arg robot_name)/meshes/steering_hinge.STL" scale = "1 1 1" />
+  </geometry>
+</xacro:macro>
+
+<!-- Collision geometry -->
+<xacro:macro name="wheels_collision_geometry">
+  <origin xyz="0 0 0" rpy="${PI/2} 0 0"/>
+  <geometry>
+    <cylinder length="${tyre_length}" radius="${tyre_radius}"/>
+  </geometry>
+</xacro:macro>
+
+
+
+</robot>

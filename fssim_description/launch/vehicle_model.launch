@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<launch>
+    <arg name="robot_name" default="fluela"/>
+    <param name="tf_prefix" value="/fssim/vehicle"/>
+
+    <arg name="sensors_config_file" default="$(find fssim_description)/cars/$(arg robot_name)/config/sensors.yaml"/>
+    <arg name="car_config_file"     default="$(find fssim_description)/cars/$(arg robot_name)/config/car.yaml"/>
+    <arg name="car_dimensions_file" default="$(find fssim_description)/cars/$(arg robot_name)/config/distances.yaml"/>
+
+    <param name="robot_description" 
+        command="$(find xacro)/xacro --inorder '$(find fssim_description)/urdf/vehicle/car.xacro' 
+                                                robot_name:='$(arg robot_name)' 
+                                                sensors_config_file:='$(arg sensors_config_file)' 
+                                                car_config_file:='$(arg car_config_file)' 
+                                                car_dimensions_file:='$(arg car_dimensions_file)'" />
+
+    <!-- convert joint states to TF transforms for rviz, etc -->
+    <node name="fssim_robot_state_publisher" output="screen" pkg="robot_state_publisher" respawn="false" type="robot_state_publisher">
+        <param name="publish_frequency" value="100"/>
+        <remap from="/joint_states" to="/fssim/joint_states"/>
+    </node>
+
+</launch>

@@ -1,0 +1,6 @@
+<launch>
+    <arg name="fssim_config" default="$(find fssim)/config/simulation.yaml"/>
+    <node pkg="fssim" name="automated_res" type="automated_res.py" output="screen"
+    args="--config $(arg fssim_config)">
+    </node>
+</launch>

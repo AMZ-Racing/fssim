@@ -1,0 +1,55 @@
+#!groovy
+import groovy.json.JsonOutput
+
+pipeline {
+    agent any
+    stages {
+        stage('Build') {
+            agent {
+                dockerfile {
+		    dir 'fssim_continuous_integration'
+		    label 'fssim-build-container'
+                    reuseNode true
+                }
+            }
+            steps {
+		sh '''#!/bin/bash -l
+			source /opt/ros/kinetic/setup.bash
+            mkdir -p catkin_ws/src/fssim
+            shopt -s extglob
+            mv !(catkin_ws) catkin_ws/src/fssim/
+            cd catkin_ws/
+            catkin init
+            cd src/fssim/
+            ./update_dependencies.sh
+			catkin build fssim --no-status -j 1
+			'''
+            }
+        }
+    }
+
+    post {
+        always {
+	    archive "logs/**/*"
+            deleteDir()
+        }
+        failure {
+            echo 'Build failed!'
+            script {
+                def slackURL = 'https://hooks.slack.com/services/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'
+                def payload = JsonOutput.toJson([text      : "Building *fssim* failed on branch *${env.BRANCH_NAME}*! \n Please look at <${env.RUN_DISPLAY_URL}> :shit:.",
+                                                 channel   : "jenkins", username  : "jenkins", icon_emoji: ":jenkins:"])
+                sh "curl -X POST --data-urlencode \'payload=${payload}\' ${slackURL}"
+            }
+        }
+        fixed {
+            echo 'Everything back to normal!'
+            script {
+                def slackURL = 'https://hooks.slack.com/services/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'
+                def payload = JsonOutput.toJson([text      : ":green_heart: Branch *${env.BRANCH_NAME}* of *fssim* is fixed again!",
+                                                 channel   : "jenkins", username  : "jenkins", icon_emoji: ":jenkins:"])
+                sh "curl -X POST --data-urlencode \'payload=${payload}\' ${slackURL}"
+            }
+        }
+    }
+}

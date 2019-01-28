@@ -1,0 +1,15 @@
+<library path="src">
+  <class name="Cone Editor" type="rqt_fssim_track_editor.main.TrackEditorPlugin" base_class_type="rqt_gui_py::Plugin">
+    <description>
+      An example Python GUI plugin to create a great user interface.
+    </description>
+    <qtgui>
+      <group>
+        <label>FSSIM</label>
+      </group>
+      <label>Track Editor</label>
+      <icon type="file">icon/cone.png</icon>
+      <statustip>Great user interface to provide real value.</statustip>
+    </qtgui>
+  </class>
+</library>

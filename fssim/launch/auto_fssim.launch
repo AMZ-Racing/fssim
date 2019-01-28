@@ -1,0 +1,12 @@
+<launch>
+
+    <param name="use_sim_time" value="true"/>
+    <arg name="fssim_config" default="$(find fssim)/config/simulation.yaml"/>
+
+    <include file="$(find fssim)/launch/start.launch">
+        <arg name="fssim_config" value="$(arg fssim_config)"/>
+    </include>
+
+    <include file="$(find fssim)/launch/rviz.launch"/>
+
+</launch>
