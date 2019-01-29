@@ -51,7 +51,7 @@ or
 <img src="fssim_doc/img/fssim_demo.gif" width="700" />
 </p>
 
-A note: this a public copy of the private version. The public version which might have some internal functionality removed.
+A note: this is a public copy of a private version. The public version might have some internal functionality removed.
 FSSIM was developed by
 
 <p align="center"> 
