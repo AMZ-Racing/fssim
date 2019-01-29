@@ -35,21 +35,9 @@ pipeline {
         }
         failure {
             echo 'Build failed!'
-            script {
-                def slackURL = 'https://hooks.slack.com/services/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'
-                def payload = JsonOutput.toJson([text      : "Building *fssim* failed on branch *${env.BRANCH_NAME}*! \n Please look at <${env.RUN_DISPLAY_URL}> :shit:.",
-                                                 channel   : "jenkins", username  : "jenkins", icon_emoji: ":jenkins:"])
-                sh "curl -X POST --data-urlencode \'payload=${payload}\' ${slackURL}"
-            }
         }
         fixed {
             echo 'Everything back to normal!'
-            script {
-                def slackURL = 'https://hooks.slack.com/services/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'
-                def payload = JsonOutput.toJson([text      : ":green_heart: Branch *${env.BRANCH_NAME}* of *fssim* is fixed again!",
-                                                 channel   : "jenkins", username  : "jenkins", icon_emoji: ":jenkins:"])
-                sh "curl -X POST --data-urlencode \'payload=${payload}\' ${slackURL}"
-            }
         }
     }
 }
