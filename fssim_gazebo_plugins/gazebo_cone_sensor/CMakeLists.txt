@@ -26,6 +26,7 @@ add_library(gazebo_cone_sensor SHARED
 
 target_include_directories(gazebo_cone_sensor PUBLIC
         include
+        ../
         ${CMAKE_SOURCE_DIR}
         ${EIGEN3_INCLUDE_DIR}
         ${catkin_INCLUDE_DIRS}

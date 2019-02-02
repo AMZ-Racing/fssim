@@ -72,5 +72,4 @@ POINT_CLOUD_REGISTER_POINT_STRUCT(gazebo::Cone,
                                           (float, cone_colour_probability.probability_other, probability_other)
 )
 
-
 #endif //AUTONOMOUS_MSGS_PARSER_CONE_OUTPUT_H

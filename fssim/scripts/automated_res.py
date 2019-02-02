@@ -63,7 +63,7 @@ def generate_track_model(track_name):
     fssim_gazebo = rospack.get_path('fssim_gazebo')
     xacro_file = fssim_gazebo + '/models/track/model.xacro'
     xacro_out_file = fssim_gazebo + '/models/track/model.config'
-    command = "xacro --inorder {} track_name:={} > {}".format(xacro_file, track_name, xacro_out_file)
+    command = "rosrun xacro xacro --inorder {} track_name:={} > {}".format(xacro_file, track_name, xacro_out_file)
     xacro_proccess = subprocess.check_output(command, shell = True, stderr = subprocess.STDOUT)
 
 

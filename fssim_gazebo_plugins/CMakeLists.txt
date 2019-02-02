@@ -22,6 +22,7 @@
 
 cmake_minimum_required(VERSION 2.8.3)
 project(fssim_gazebo_plugins)
+add_compile_options(-fext-numeric-literals)
 set(CMAKE_CXX_STANDARD 11)
 
 include_directories(include

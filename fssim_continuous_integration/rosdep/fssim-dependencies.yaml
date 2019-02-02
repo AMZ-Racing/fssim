@@ -9,12 +9,12 @@ fssim-python-rospkg:
 fssim-python-empy:
   ubuntu: [python-empy]
 fssim-pcl-ros:
-  ubuntu: [ros-kinetic-pcl-ros]
+  ubuntu: [ros-indigo-pcl-ros]
 fssim-xacro:
-  ubuntu: [ros-kinetic-xacro]
+  ubuntu: [ros-indigo-xacro]
 fssim-shapely:
   ubuntu: [python-shapely]
-fssim-subprocess32:
-  ubuntu: [python-subprocess32]
+#fssim-subprocess32:
+#  ubuntu: [python-subprocess32]
 fsssim-python-lxml:
   ubuntu: [python-lxml]

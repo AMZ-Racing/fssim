@@ -21,6 +21,7 @@
 # SOFTWARE.
 
 include_directories(include
+        ../
         ${catkin_INCLUDE_DIRS}
         ${GAZEBO_INCLUDE_DIRS}
         ${SDFormat_INCLUDE_DIRS}

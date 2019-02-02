@@ -41,5 +41,5 @@ elif [ ! "${FSSIM}" == "${FSSIM_DIR}" ]; then
          "export FSSIM=${FSSIM}\n"
     RED='\033[0;31m'
     echo -e "${RED}###### FAIL ######"
-    exit 1;
+    #exit 1;
 fi

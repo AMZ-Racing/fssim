@@ -31,6 +31,7 @@ find_package(Eigen3 REQUIRED)
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${GAZEBO_CXX_FLAGS}")
 
+
 link_directories(${catkin_LIBRARY_DIRS}
                  ${OGRE_LIBRARY_DIRS}
                  ${OGRE-Terrain_LIBRARY_DIRS}
