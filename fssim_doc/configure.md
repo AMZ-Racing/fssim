@@ -1,6 +1,6 @@
 ## Basic Configuration
 The basic run configuration are described in a file similar to [simulation.yaml](../fssim/config/simulation.yaml). 
-* One can pick there a vehicle used for the set of simulation runs. This vehicle must be created in [cars](../fssim/config/simulation.yaml) folder. 
+* One can pick there a vehicle used for the set of simulation runs. This vehicle must be created in [cars](../fssim_description/cars) folder. 
 * Maximal time for a simulation repetition is set under `kill_after`. If a run runs longer than this time in seconds, the run will be killed and assumed to be unsacesfull.
 * The further files are located in a directory with respect to `pkg_config_storage`
   * Every single repetition must be specifies with three files, `sensors_config_file`, `track_name` and `autonomous_stack`
