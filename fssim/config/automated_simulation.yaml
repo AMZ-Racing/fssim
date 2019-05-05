@@ -24,7 +24,7 @@
 simulation_name: "Automated Simulation"
 
 robot_name: gotthard  # Name of the robot [string]
-kill_after: 1000      # After this time, repetition is stopped [s]
+kill_after: 100      # After this time, repetition is stopped [s]
 
 pkg_config_storage: fssim_description # If relative path is given in following config files, the path will be taken
                                     # wrt to this package
