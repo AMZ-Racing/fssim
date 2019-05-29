@@ -46,6 +46,20 @@ or
 # Known problems
 * The update rate of TF between wheels and main chassis is too low or too rough. This causes jumps of wheels at higher speeds in RViZ. This influences only the visualization and not the functionality. 
 
+# Cite
+* If using this project for scientific publications, please cite this [paper](https://arxiv.org/abs/1905.05150):
+
+Juraj Kabzan, Miguel de la Iglesia Valls, Victor Reijgwart, Hubertus Franciscus Cornelis Hendrikx, Claas Ehmke, Manish Prajapat, Andreas Bühler, Nikhil Gosala, Mehak Gupta, Ramya Sivanesan, Ankit Dhall, Eugenio Chisari, Napat Karnchanachari, Sonja Brits, Manuel Dangel, Inkyu Sa, Renaud Dubé, Abel Gawel, Mark Pfeiffer, Alexander Liniger, John Lygeros, Roland Siegwart, "**AMZ Driverless: The Full Autonomous Racing System**", arXiv preprint arXiv:1905.05150
+
+```latex
+@misc{1905.05150,
+Author = {Juraj Kabzan and Miguel de la Iglesia Valls and Victor Reijgwart and Hubertus Franciscus Cornelis Hendrikx and Claas Ehmke and Manish Prajapat and Andreas Bühler and Nikhil Gosala and Mehak Gupta and Ramya Sivanesan and Ankit Dhall and Eugenio Chisari and Napat Karnchanachari and Sonja Brits and Manuel Dangel and Inkyu Sa and Renaud Dubé and Abel Gawel and Mark Pfeiffer and Alexander Liniger and John Lygeros and Roland Siegwart},
+Title = {AMZ Driverless: The Full Autonomous Racing System},
+Year = {2019},
+Eprint = {arXiv:1905.05150},
+}
+```
+
 # Example
 <p align="center"> 
 <img src="fssim_doc/img/fssim_demo.gif" width="700" />
