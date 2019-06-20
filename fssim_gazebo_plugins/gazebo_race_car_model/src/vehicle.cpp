@@ -61,7 +61,9 @@ Vehicle::Vehicle(physics::ModelPtr &_model,
 
     setPositionFromWorld();
 
-    time_last_cmd_ = 0.0;
+    time_last_cmd_ = ros::Time::now() - ros::Duration(10);
+    input_.delta = 0;
+    input_.dc = 0;
 }
 
 void Vehicle::setPositionFromWorld() {
@@ -110,7 +112,33 @@ void Vehicle::publish(const double sim_time) {
 }
 
 void Vehicle::update(const double dt) {
-    input_.dc = car_info_.torque_ok && ros::Time::now().toSec() - time_last_cmd_ < 1.0 ? input_.dc : -1.0;
+    //static ros::Time t_past = ros::Time::now();
+    const auto t_now = ros::Time::now();
+    //const double dt_new = (t_now - t_past).toSec();
+    //std::cerr << "Elapsed time: " << dt << std::endl;
+    //t_past = t_now;
+     
+    // Extract the commands
+    while(!deltas_.empty()){
+        auto first = deltas_.front();
+        if((t_now - first.t).toSec() < dt){ // 0){
+            break; 
+        }
+        input_.delta = first.v;
+        deltas_.pop_front();
+    }
+    
+    while(!dcs_.empty()){
+        auto first = dcs_.front();
+        if((t_now - first.t).toSec() < dt){ //0){
+            break; 
+        }
+        input_.dc = first.v;
+        dcs_.pop_front();
+    }
+
+    // Brake if cmd are not coming
+    input_.dc = car_info_.torque_ok && (t_now - time_last_cmd_).toSec() < 1.0 ? input_.dc : -1.0;
 
     double Fz = getNormalForce(state_);
 
@@ -127,6 +155,7 @@ void Vehicle::update(const double dt) {
     // Dynamics
     const auto x_dot_dyn  = f(state_, input_, Fx, M_Tv, FyF, FyR);
     const auto x_next_dyn = state_ + x_dot_dyn * dt;
+    state_ = x_next_dyn;
     state_ = f_kin_correction(x_next_dyn, state_, input_, Fx, M_Tv, FyF, FyR, dt);
     state_.validate();
 
@@ -136,9 +165,9 @@ void Vehicle::update(const double dt) {
 
     // Overlay Noise on Velocities
     auto state_pub = state_.toRos(ros::Time::now());
-    state_pub.vx += noise::getGaussianNoise(0.0, param_.sensors.noise_vx_sigma);
-    state_pub.vy += noise::getGaussianNoise(0.0, param_.sensors.noise_vy_sigma);
-    state_pub.r += noise::getGaussianNoise(0.0, param_.sensors.noise_r_sigma);
+    //state_pub.vx += noise::getGaussianNoise(0.0, param_.sensors.noise_vx_sigma);
+    //state_pub.vy += noise::getGaussianNoise(0.0, param_.sensors.noise_vy_sigma);
+    //state_pub.r += noise::getGaussianNoise(0.0, param_.sensors.noise_r_sigma);
     pub_ground_truth_.publish(state_pub);
 
     publishCarInfo(alphaF, alphaR, FyF, FyR, Fx);
@@ -196,6 +225,7 @@ State Vehicle::f_kin_correction(const State &x_in,
                                 const AxleTires &FyR,
                                 const double dt) {
     State        x       = x_in;
+
     const double v_x_dot = Fx / (param_.inertia.m + param_.driveTrain.m_lon_add);
     const double v       = std::hypot(state_.v_x, state_.v_y);
     const double v_blend = 0.5 * (v - 1.5);
@@ -227,7 +257,8 @@ void Vehicle::publishTf(const State &x) {
 
 double Vehicle::getFx(const State &x, const Input &u) {
     const double dc = x.v_x <= 0.0 && u.dc < 0.0 ? 0.0 : u.dc;
-    const double Fx = dc * param_.driveTrain.cm1 - aero_.getFdrag(x) - param_.driveTrain.cr0;
+    resistance_force = aero_.getFdrag(x) + param_.driveTrain.cr0;
+    const double Fx = dc * param_.driveTrain.cm1 - resistance_force;
     return Fx;
 }
 
@@ -243,9 +274,17 @@ double Vehicle::getMTv(const State &x, const Input &u) const {
 }
 
 void Vehicle::onCmd(const fssim_common::CmdConstPtr &msg) {
-    input_.delta = msg->delta;
-    input_.dc    = msg->dc;
-    time_last_cmd_ = ros::Time::now().toSec();
+    time_last_cmd_ = ros::Time::now();
+    auto msg_stamp = msg->stamp;
+    if(std::abs((msg_stamp - time_last_cmd_).toSec()) < 5 ){
+      time_last_cmd_ = msg_stamp; 
+    }
+
+    deltas_.emplace_back(time_last_cmd_,  msg->delta);
+    dcs_.emplace_back(time_last_cmd_,  msg->dc);
+    //input_.delta   = msg->delta;
+    //input_.dc      = msg->dc;
+    
 }
 
 void Vehicle::onInitialPose(const geometry_msgs::PoseWithCovarianceStamped &msg) {
@@ -256,7 +295,8 @@ void Vehicle::onInitialPose(const geometry_msgs::PoseWithCovarianceStamped &msg)
 }
 
 double Vehicle::getNormalForce(const State &x) {
-    return param_.inertia.g * param_.inertia.m + aero_.getFdown(x);
+    down_force = param_.inertia.g * param_.inertia.m + aero_.getFdown(x);
+    return down_force;
 }
 
 void Vehicle::setModelState(const State &x) {
@@ -284,7 +324,11 @@ void Vehicle::publishCarInfo(const AxleTires &alphaF,
     // Publish Car Info
     fssim_common::CarInfo car_info;
     car_info.header.stamp = ros::Time::now();
-
+    
+    car_info.resistance_force = resistance_force;
+    car_info.down_force = down_force;
+    car_info.dc        = input_.dc;
+    car_info.delta     = input_.delta;
     car_info.alpha_f   = alphaF.avg();
     car_info.alpha_f_l = alphaF.left;
     car_info.alpha_f_r = alphaF.right;

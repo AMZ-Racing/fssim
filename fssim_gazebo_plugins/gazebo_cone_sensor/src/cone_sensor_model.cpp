@@ -143,10 +143,12 @@ void ConeSensorModel::update() {
     std::vector<Eigen::Vector3d> left_around;
     std::vector<Eigen::Vector3d> right_around;
 
-    findObservedCones(pos, left_, config.observation_likelihood_left, config.likelihood_blue, point_cloud_, LEFT);
-    findObservedCones(pos, right_, config.observation_likelihood_right, config.likelihood_yellow, point_cloud_, RIGHT);
-    findObservedCones(pos, orange_, config.observation_likelihood_orange, config.likelihood_orange, point_cloud_,
-                      ORANGE);
+    findObservedCones(pos, left_,   config.observation_likelihood_left,   
+                     config.likelihood_blue,   point_cloud_, LEFT);
+    findObservedCones(pos, right_,  config.observation_likelihood_right,
+                     config.likelihood_yellow, point_cloud_, RIGHT);
+    findObservedCones(pos, orange_, config.observation_likelihood_orange,
+                    config.likelihood_orange, point_cloud_, ORANGE);
 
     point_cloud_.header.frame_id = "fssim_map";
     point_cloud_.width           = 1;
@@ -205,20 +207,37 @@ void ConeSensorModel::updateTrack() {
     }
 }
 
-void ConeSensorModel::addNoise(Cone &c) {
-    double theta  = std::atan2(c.y, c.x);
+void ConeSensorModel::addNoise(Cone &cone) {
+    double theta  = std::atan2(cone.y, cone.x);
     double dr     = noise::getGaussianNoise(config.gaussian_noise_mu_radial, config.gaussian_noise_sigma_radial);
     double dtheta = noise::getGaussianNoise(config.gaussian_noise_mu_angular, config.gaussian_noise_sigma_angular);
 
-    c.x += std::cos(theta) * dr;
-    c.y += std::sin(theta) * dr;
+    cone.x += std::cos(theta) * dr;
+    cone.y += std::sin(theta) * dr;
 
-    const double d = std::hypot(c.x, c.y);
+    const double d = std::hypot(cone.x, cone.y);
 
     theta += dtheta;
 
-    c.x = static_cast<float>(d * std::cos(theta));
-    c.y = static_cast<float>(d * std::sin(theta));
+    const double c = std::cos(theta);
+    const double s = std::sin(theta);
+    const double d2 = d*d;
+    const double c2 = c*c;
+    const double cs = c*s;    
+    const double s2 = s*s;
+    const double sigma_angular2 = config.gaussian_noise_sigma_angular*config.gaussian_noise_sigma_angular;
+    const double sigma_radial2  = config.gaussian_noise_sigma_radial*config.gaussian_noise_sigma_radial;
+    const double c_xx =  s2*d2*sigma_angular2 + c2*sigma_radial2;
+    const double c_xy = -cs*d2*sigma_angular2 + cs*sigma_radial2;
+    const double c_yy =  s2*d2*sigma_angular2 + s2*sigma_radial2;
+
+    cone.cone_position_uncertainty.covariance_xx =  static_cast<float>(c_xx);
+    cone.cone_position_uncertainty.covariance_xy =  static_cast<float>(c_xy);
+    cone.cone_position_uncertainty.covariance_yx =  static_cast<float>(c_xy);
+    cone.cone_position_uncertainty.covariance_yy =  static_cast<float>(c_yy);
+
+    cone.x = static_cast<float>(d * std::cos(theta));
+    cone.y = static_cast<float>(d * std::sin(theta));
 }
 
 void ConeSensorModel::addRadialNoise(PointCloud &cloud) {

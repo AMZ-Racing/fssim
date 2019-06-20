@@ -44,6 +44,7 @@
 #include "gazebo_utils/include/gazebo_to_ros.hpp"
 
 // ROS
+#include "ros/ros.h"
 #include <tf/transform_datatypes.h>
 #include <tf/transform_broadcaster.h>
 
@@ -136,6 +137,9 @@ class Vehicle {
     /// Pointer to the parent model
     physics::ModelPtr model;
 
+    // Variable for debug
+    double resistance_force, down_force;
+
     /// Chassis link and Base Link
     physics::LinkPtr chassisLink;
     physics::LinkPtr base_link_;
@@ -154,7 +158,20 @@ class Vehicle {
     // States
     State state_;
     Input input_;
-    double time_last_cmd_;
+
+    struct InputStamp{
+        InputStamp(const ros::Time t_, const double v_){
+            t = t_; v = v_;
+        }
+        ros::Time t;
+        double v;
+    };
+
+    ros::Time time_last_cmd_;
+
+
+    std::list<InputStamp> deltas_;
+    std::list<InputStamp> dcs_;
 
     // Consider Aerodynamics
     Aero aero_;

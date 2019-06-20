@@ -98,13 +98,13 @@ def is_left_cones(trans, cones):
 
 class VehiclePositionCheck:
 
-    def __init__(self, mission, ignore_track_check, track_details = None):
+    def __init__(self, mission, do_track_check, track_details = None):
 
         # ROS Subscribers
         self.sub_track = rospy.Subscriber('/fssim/track', Track, self.callback_track)
 
         self.received_track = False
-        self.ignore_track_check = ignore_track_check
+        self.ignore_track_check = not do_track_check
         self.mission = mission
 
         # If we find detailed track description we can set also initial position
@@ -119,10 +119,10 @@ class VehiclePositionCheck:
         self.cones_right = []
 
     def is_track_valid(self):
-        return self.received_track or self.ignore_track_check
+        return self.received_track
 
     def is_car_in_track(self):
-        return self.is_all_car_in_out_of_track()
+        return self.ignore_track_check or self.is_all_car_in_out_of_track()
 
     def get_track_init_pos(self):
         self.pose_init = Point(self.track_details['starting_pose_front_wing'])

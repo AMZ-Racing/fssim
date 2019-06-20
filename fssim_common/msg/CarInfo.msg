@@ -1,5 +1,8 @@
 Header header
-Vector3Ext drag_force
+#Vector3Ext drag_force
+
+float64 resistance_force
+float64 down_force
 
 float64 delta
 float64 dc
