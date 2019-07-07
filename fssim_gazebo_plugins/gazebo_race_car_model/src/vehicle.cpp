@@ -201,7 +201,7 @@ State Vehicle::f_kin_correction(const State &x_in,
     const double v_blend = 0.5 * (v - 1.5);
     const double blend   = std::fmax(std::fmin(1.0, v_blend), 0.0);
 
-    x.v_x = blend * x.v_x + (1.0 - blend) * x_state.v_x + dt * v_x_dot;
+    x.v_x = blend * x.v_x + (1.0 - blend) * (x_state.v_x + dt * v_x_dot);
 
     const double v_y = std::tan(u.delta) * x.v_x * param_.kinematic.l_R / param_.kinematic.l;
     const double r   = std::tan(u.delta) * x.v_x / param_.kinematic.l;
