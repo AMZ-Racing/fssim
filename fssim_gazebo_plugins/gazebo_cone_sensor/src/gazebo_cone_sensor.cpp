@@ -65,7 +65,7 @@ void ConeSensor::Load(physics::ModelPtr _parent, sdf::ElementPtr _sdf) {
 void ConeSensor::Update() {
     std::lock_guard<std::mutex> lock(mutex);
 
-    common::Time cur_time = model_->GetWorld()->GetSimTime();
+    common::Time cur_time = model_->GetWorld()->SimTime();
     double       dt;
 
     if (!isLoopTime(cur_time, dt)) {

@@ -9,9 +9,9 @@ fssim-python-rospkg:
 fssim-python-empy:
   ubuntu: [python-empy]
 fssim-pcl-ros:
-  ubuntu: [ros-kinetic-pcl-ros]
+  ubuntu: [ros-melodic-pcl-ros]
 fssim-xacro:
-  ubuntu: [ros-kinetic-xacro]
+  ubuntu: [ros-melodic-xacro]
 fssim-shapely:
   ubuntu: [python-shapely]
 fssim-subprocess32:

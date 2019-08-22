@@ -5,14 +5,14 @@
 # FSSIM 
 FSSIM is a vehicle simulator dedicated for Formula Student Driverless Competition. It was developed for autonomous software testing purposes and not for gaming. A version of this simulator was used to predict **lap time of *gotthard* at FSG 2018** trackdrive with **1% accuracy**. 
 
-This simulator is developed and tested on **Ubuntu 16.04 and ROS Kinetic** and both are assumed to be already installed.
+This simulator is developed and tested on **Ubuntu 16.04 and ROS melodic** and both are assumed to be already installed.
 
 The more extensive tutorial can be found under [Wiki](fssim_doc/index.md)
 
 FSSIM is developed by [Juraj Kabzan](https://www.linkedin.com/in/juraj-kabzan-143698a1/) as part of our work at [AMZ-Driverless](http://driverless.amzracing.ch/).
 
 # How to Run It in your Workspace
-0. Install `sudo apt install ros-kinetic-desktop-full` and `sudo apt install python-catkin-tools`
+0. Install `sudo apt install ros-melodic-desktop-full` and `sudo apt install python-catkin-tools`
 1. Clone this repository to an existing **ROS Workspace** initialized with `catkin init`
 2. Run `cd src/fssim` from the workspace.
 3. Run `./update_dependencies.sh`, you will need to approve multiple packages to be installed
@@ -22,7 +22,7 @@ FSSIM is developed by [Juraj Kabzan](https://www.linkedin.com/in/juraj-kabzan-14
 7. The terminal will inform you what is happening. The loading time takes around 20 seconds. When `Sending RES GO` will show up in the terminal, you can start controlling the vehicle with `/fssim/cmd` topic.
 
 # Combine it with simple FSD skeleton Framework and drive a lap
-0. Install `sudo apt install ros-kinetic-desktop-full` and `sudo apt install python-catkin-tools`
+0. Install `sudo apt install ros-melodic-desktop-full` and `sudo apt install python-catkin-tools`
 1. [Clone the AMZ skeleton workspace](https://github.com/AMZ-Driverless/fsd_skeleton#setting-up-the-workspace).
 2. Run `./update_dependencies.sh -f` from `fsd_skeleton`, you will need to approve multiple packages to be installed
 3. Compile with `catkin build`

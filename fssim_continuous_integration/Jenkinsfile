@@ -14,7 +14,7 @@ pipeline {
             }
             steps {
 		sh '''#!/bin/bash -l
-			source /opt/ros/kinetic/setup.bash
+			source /opt/ros/melodic/setup.bash
             mkdir -p catkin_ws/src/fssim
             shopt -s extglob
             mv !(catkin_ws) catkin_ws/src/fssim/

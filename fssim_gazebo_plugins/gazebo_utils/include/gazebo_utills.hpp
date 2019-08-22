@@ -75,7 +75,7 @@ type getParam(sdf::ElementPtr &sdf, std::string paramName) {
 } // namespace gazebo
 
 inline Eigen::Vector3d toVector(const boost::shared_ptr<gazebo::physics::Entity> &v) {
-    return {v->GetWorldPose().pos.x, v->GetWorldPose().pos.y, 0.0};
+    return {v->WorldPose().Pos().X(), v->WorldPose().Pos().Y(), 0.0};
 }
 
 #endif //FSSIM_GAZEBO_GAZEBOUTILLS_H

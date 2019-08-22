@@ -47,7 +47,7 @@ class Axle {
          transport::NodePtr &gznode,
          boost::shared_ptr<ros::NodeHandle> &nh);
 
-    const math::Vector3 &getAxlePos() const;
+    const ignition::math::Vector3<double> &getAxlePos() const;
 
     void printInfo();
 
@@ -75,7 +75,7 @@ class Axle {
     WheelType wheel_r_;
 
     // Center Position of the axle
-    math::Vector3 axlePos;
+    ignition::math::Vector3<double> axlePos;
 
     // Parameters
     double axle_width_;        // Width [m]

@@ -65,14 +65,14 @@ Vehicle::Vehicle(physics::ModelPtr &_model,
 }
 
 void Vehicle::setPositionFromWorld() {
-    auto       pos   = model->GetWorldPose();
-    const auto vel   = model->GetWorldLinearVel();
-    const auto accel = model->GetWorldLinearAccel();
-    const auto r     = model->GetWorldAngularVel();
+    auto       pos   = model->WorldPose();
+    const auto vel   = model->WorldLinearVel();
+    const auto accel = model->WorldLinearAccel();
+    const auto r     = model->WorldAngularVel();
 
     state_.x   = -1;
-    state_.y   = pos.pos.y;
-    state_.yaw = pos.rot.GetYaw();
+    state_.y   = pos.Pos().Y();
+    state_.yaw = pos.Rot().Yaw();
     state_.v_x = 0.0;
     state_.v_y = 0.0;
     state_.r   = 0.0;
@@ -90,7 +90,7 @@ void Vehicle::initModel(sdf::ElementPtr &_sdf) {
 
     // then the wheelbase is the distance between the axle centers
     auto vec3 = front_axle_.getAxlePos() - rear_axle_.getAxlePos();
-    param_.kinematic.l = vec3.GetLength();
+    param_.kinematic.l = vec3.Length();
 }
 
 void Vehicle::initVehicleParam(sdf::ElementPtr &_sdf) {
@@ -260,9 +260,9 @@ double Vehicle::getNormalForce(const State &x) {
 }
 
 void Vehicle::setModelState(const State &x) {
-    const math::Pose    pose(x.x, x.y, 0.0, 0, 0.0, x.yaw);
-    const math::Vector3 vel(x.v_x, x.v_y, 0.0);
-    const math::Vector3 angular(0.0, 0.0, x.r);
+    const ignition::math::Pose3d    pose(x.x, x.y, 0.0, 0, 0.0, x.yaw);
+    const ignition::math::Vector3<double> vel(x.v_x, x.v_y, 0.0);
+    const ignition::math::Vector3<double> angular(0.0, 0.0, x.r);
     model->SetWorldPose(pose);
     model->SetAngularVel(angular);
     model->SetLinearVel(vel);
