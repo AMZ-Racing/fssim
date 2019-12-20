@@ -26,20 +26,16 @@ add_library(gazebo_cone_sensor SHARED
 
 target_include_directories(gazebo_cone_sensor PUBLIC
         include
-        ${CMAKE_SOURCE_DIR}
+        ${PROJECT_SOURCE_DIR}
         ${EIGEN3_INCLUDE_DIR}
         ${catkin_INCLUDE_DIRS}
         ${GAZEBO_INCLUDE_DIRS}
         ${PCL_INCLUDE_DIRS})
-
 target_link_libraries(gazebo_cone_sensor
         ${GAZEBO_LIBRARIES}
         ${IGNITION-MSGS_LIBRARIES}
         yaml-cpp
-        gazebo_utils
-        ${catkin_LIBRARY_DIRS}
-        ${EIGEN3_INCLUDE_DIR}
-        ${PCL_INCLUDE_DIRS})
+        gazebo_utils)
 
 install(TARGETS gazebo_cone_sensor
         ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}

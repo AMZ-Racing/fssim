@@ -40,15 +40,13 @@ add_library(gazebo_track SHARED
             src/gazebo_track.cpp)
 target_include_directories(gazebo_track PUBLIC
                            include
-                           ${CMAKE_SOURCE_DIR}
+                           ${PROJECT_SOURCE_DIR}
                            ${EIGEN3_INCLUDE_DIR}
                            ${PCL_INCLUDE_DIRS})
 target_link_libraries(gazebo_track
                       ${GAZEBO_LIBRARIES}
                       ${IGNITION-MSGS_LIBRARIES}
-                      yaml-cpp
-                      ${EIGEN3_INCLUDE_DIR}
-                      ${PCL_INCLUDE_DIRS})
+                      yaml-cpp)
 
 install(TARGETS gazebo_track
         ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
