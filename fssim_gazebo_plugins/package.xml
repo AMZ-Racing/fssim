@@ -32,6 +32,7 @@
     <depend>pcl_ros</depend>
     <depend>libpcl-all</depend>
     <depend>fssim-pcl-ros</depend>
+    <depend>fssim-yaml-cpp</depend>
 
     <!-- The export tag contains other, unspecified, tags -->
     <export>

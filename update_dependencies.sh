@@ -36,7 +36,8 @@ if [[ $REPLY =~ ^[Yy]$ ]] || [ -z $REPLY ]; then
     	if [ ${MACHINE_TYPE} == 'x86_64' ]; then
     		printf "Installing git-lfs"
     		curl -s https://packagecloud.io/install/repositories/github/git-lfs/script.deb.sh | sudo bash
-    		sudo apt install git-lfs
+    		sudo apt update
+    		sudo apt install -y git-lfs
     	fi
     fi
     # Place our AMZ dependencies in the rosdep sources folder
