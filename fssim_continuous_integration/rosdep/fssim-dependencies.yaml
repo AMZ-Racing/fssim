@@ -16,5 +16,9 @@ fssim-shapely:
   ubuntu: [python-shapely]
 fssim-subprocess32:
   ubuntu: [python-subprocess32]
-fsssim-python-lxml:
+fssim-python-lxml:
   ubuntu: [python-lxml]
+fssim-yaml-cpp:
+  ubuntu: [libyaml-cpp-dev]
+fssim-rviz:
+  ubuntu: [ros-melodic-rviz]
