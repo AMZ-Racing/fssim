@@ -41,15 +41,13 @@ add_library(gazebo_utils SHARED
             src/noise.cpp)
 target_include_directories(gazebo_utils PUBLIC
                            include
-                           ${CMAKE_SOURCE_DIR}
+                           ${PROJECT_SOURCE_DIRS}
                            ${EIGEN3_INCLUDE_DIR}
                            ${PCL_INCLUDE_DIRS})
 target_link_libraries(gazebo_utils
                       ${GAZEBO_LIBRARIES}
                       ${IGNITION-MSGS_LIBRARIES}
-                      yaml-cpp
-                      ${EIGEN3_INCLUDE_DIR}
-                      ${PCL_INCLUDE_DIRS})
+                      yaml-cpp)
 
 install(TARGETS gazebo_utils
         ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}

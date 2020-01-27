@@ -38,7 +38,7 @@ add_library(gazebo_race_car_model SHARED
         src/vehicle.cpp
         src/wheel.cpp
         src/axle.cpp)
-target_include_directories(gazebo_race_car_model PUBLIC include ${CMAKE_SOURCE_DIR} ${catkin_LIBRARY_DIRS})
+    target_include_directories(gazebo_race_car_model PUBLIC include ${PROJECT_SOURCE_DIR})
 target_link_libraries(gazebo_race_car_model ${GAZEBO_LIBRARIES} ${IGNITION-MSGS_LIBRARIES} yaml-cpp ${catkin_LIBRARIES} ${OGRE_LIBRARY})
 
 install(TARGETS gazebo_race_car_model
