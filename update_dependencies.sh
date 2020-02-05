@@ -26,9 +26,15 @@ printf "\n\n"
 ###############################################
 # Update the binary dependencies using rosdep #
 ###############################################
-read -p "Do you want to install/update the projects dependencies of FSSIM(Y/n)? " -n 1 -r
-echo
-if [[ $REPLY =~ ^[Yy]$ ]] || [ -z $REPLY ]; then
+
+perform=0
+if [ "$#" -eq 1 ] && [ "$1" == "-y" ]; then
+  perform=1
+else
+  read -p "Do you want to install/update the projects dependencies of FSSIM(Y/n)? " -n 1 -r
+fi
+
+if [[ $REPLY =~ ^[Yy]$ ]] || [ -z $REPLY ] || [ $perform -eq 1 ]; then
     PKG_OK=$(dpkg-query -W --showformat='${Status}\n' git-lfs|grep "install ok installed")
     echo Checking for git-lfs: $PKG_OK
 	if [ "" == "$PKG_OK" ]; then
