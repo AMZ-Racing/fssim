@@ -41,6 +41,8 @@ add_library(gazebo_race_car_model SHARED
     target_include_directories(gazebo_race_car_model PUBLIC include ${PROJECT_SOURCE_DIR})
 target_link_libraries(gazebo_race_car_model ${GAZEBO_LIBRARIES} ${IGNITION-MSGS_LIBRARIES} yaml-cpp ${catkin_LIBRARIES} ${OGRE_LIBRARY})
 
+add_dependencies(gazebo_race_car_model ${catkin_EXPORTED_TARGETS})
+
 install(TARGETS gazebo_race_car_model
         ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
         LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}

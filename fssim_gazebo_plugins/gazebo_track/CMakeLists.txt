@@ -47,6 +47,8 @@ target_link_libraries(gazebo_track
                       ${GAZEBO_LIBRARIES}
                       ${IGNITION-MSGS_LIBRARIES}
                       yaml-cpp)
+                      
+add_dependencies(gazebo_track ${catkin_EXPORTED_TARGETS})
 
 install(TARGETS gazebo_track
         ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
