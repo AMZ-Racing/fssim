@@ -41,7 +41,7 @@ Axle<WheelType>::Axle(physics::ModelPtr &_model,
                                                                 name_(name) {
 
     const auto vec3 = wheel_l_.getCenterPos() - wheel_r_.getCenterPos();
-    axle_width_ = vec3.GetLength();
+    axle_width_ = vec3.Length();
 
     axlePos = (wheel_l_.getCenterPos() + wheel_r_.getCenterPos()) / 2.0;
 
@@ -49,7 +49,7 @@ Axle<WheelType>::Axle(physics::ModelPtr &_model,
 }
 
 template<class WheelType>
-const math::Vector3 &Axle<WheelType>::getAxlePos() const {
+const ignition::math::Vector3d &Axle<WheelType>::getAxlePos() const {
     return axlePos;
 }
 

@@ -12,10 +12,10 @@ def load_robot_description():
 
     model_filepath = rospy.get_param('/fssim/model_filepath')
 
-    print sensors_config_file
-    print car_config_file
-    print car_dimensions_file
-    print model_filepath
+    print(sensors_config_file)
+    print(car_config_file)
+    print(car_dimensions_file)
+    print(model_filepath)
 
     try:
         command_string = "rosrun xacro xacro --inorder {} robot_name:='{}' sensors_config_file:='{}' car_config_file:='{}' car_dimensions_file:='{}".format(model_filepath, 

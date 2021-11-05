@@ -77,7 +77,7 @@ class SnapshotHandler():
             self.cones = np.vstack([self.cones, xy])
 
     def import_snapshots(self, topic_name):
-        print "Importing Snapshots from: ", topic_name
+        print("Importing Snapshots from: ", topic_name)
 
         bag = rosbag.Bag(self.bag_filter.file_name)
 
@@ -93,7 +93,7 @@ class SnapshotHandler():
         bag.close()
 
         self.load_snap_from_list(0)
-        print "Importing DONE"
+        print("Importing DONE")
 
 
     def load_topic_names(self, path):

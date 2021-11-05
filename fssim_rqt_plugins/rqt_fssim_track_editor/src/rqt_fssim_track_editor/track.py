@@ -123,7 +123,7 @@ class Track():
                                                       self.control_points[-2, :] -
                                                       self.control_points[-1, :]))
         else:
-            print "WARNING: Track was already computed"
+            print("WARNING: Track was already computed")
             return
 
         kind = "cubic"
@@ -397,7 +397,7 @@ class Track():
         bag.close()
 
     def export_to_yaml(self, path, name, create_dir=True):
-        print path, name
+        print(path, name)
         dict_track = {"cones_left": np.array(self.cones_left).tolist(),
                       "cones_right": np.array(self.cones_right).tolist(),
                       "cones_orange": np.array(self.cones_orange).tolist(),
@@ -416,7 +416,7 @@ class Track():
         file_path = dir + '/' + name + ".yaml"
         with open(file_path, 'w') as outfile:
             yaml.dump(dict_track, outfile, default_flow_style = False)
-        print "[INFO] Saving track to: ",file_path
+        print("[INFO] Saving track to: ",file_path)
 
     def export_to_mat(self, path, name):
         if len(self.cones_left) == len(self.middle) and len(self.cones_right) == len(self.middle):
@@ -436,4 +436,4 @@ class Track():
             os.makedirs(dir)
         file_path = dir +'/'+ name + '.mat'
         savemat(file_path, dict_track, oned_as = 'row')
-        print "[INFO] Saving track to: ",file_path
+        print("[INFO] Saving track to: ",file_path)

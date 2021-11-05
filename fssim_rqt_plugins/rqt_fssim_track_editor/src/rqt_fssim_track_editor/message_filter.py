@@ -30,7 +30,7 @@ class BagMessageFilter:
         self.file_name = filename
 
     def get_topic_names(self, msg):
-        print " Opening bag:",self.file_name
+        print(" Opening bag:",self.file_name)
         bag = rosbag.Bag(self.file_name)
 
         val = bag.get_type_and_topic_info()[1].values()

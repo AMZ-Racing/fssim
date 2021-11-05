@@ -114,7 +114,7 @@ bool ConeSensorModel::load(const physics::ModelPtr &model, const sdf::ElementPtr
     pub_markers_ = nh_.advertise<visualization_msgs::MarkerArray>("cone_sensor", 1);
 
     parent_model_ = model;
-    model_        = model->GetWorld()->GetModel("track");
+    model_        = model->GetWorld()->ModelByName("track");
     if (model_ == nullptr) { return false; }
 
     vehicle_frame_ = _sdf->Get<std::string>("base_link");
@@ -174,7 +174,7 @@ bool ConeSensorModel::checkInit() {
     if (loaded_sacesfully_) { return true; }
 
     parent_model_->Reset();
-    model_ = parent_model_->GetWorld()->GetModel("track");
+    model_ = parent_model_->GetWorld()->ModelByName("track");
     if (model_ == NULL) {
         ROS_ERROR("ConeSensorModel: DID NOT FIND MODEL");
         return false;

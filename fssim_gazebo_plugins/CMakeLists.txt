@@ -20,7 +20,7 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-cmake_minimum_required(VERSION 2.8.3)
+cmake_minimum_required(VERSION 3.0.2)
 project(fssim_gazebo_plugins)
 set(CMAKE_CXX_STANDARD 11)
 
@@ -41,7 +41,7 @@ find_package(catkin REQUIRED COMPONENTS
         pcl_ros
         visualization_msgs)
 
-find_package(gazebo 7 REQUIRED)
+find_package(gazebo 11 REQUIRED)
 find_package(PCL REQUIRED)
 find_package(Boost REQUIRED COMPONENTS thread)
 
