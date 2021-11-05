@@ -27,10 +27,10 @@ robot_name: gotthard  # Name of the robot [string]
 kill_after: 6000      # After this time, repetition is stopped [s]
 
 pkg_config_storage: fssim_description # If relative path is given in following config files, the path will be taken
-                                    # wrt to this package
+                                    # wrt to this packagesendTransform
 # Config files for repetitions
 repetitions:
-- {sensors_config_file: cars/gotthard/config/sensors.yaml, track_name: FSI.sdf, autonomous_stack: }
+- {sensors_config_file: cars/gotthard/config/sensors.yaml, track_name: FSG.sdf, autonomous_stack: }
 
 # Checks which must be true in order to automatically press RES GO
 res:

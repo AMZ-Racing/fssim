@@ -130,13 +130,13 @@ class TrackStreamer : public ModelPlugin {
             const auto child  = model->GetChild(i);
             const auto entity = boost::dynamic_pointer_cast<gazebo::physics::Entity>(child);
             const auto name   = entity->GetName();
-            if (name == "cone_left::link") {
+            if (name.substr(0, 9) == "cone_left") {
                 left.push_back(entity);
-            } else if (name == "cone_right::link") {
+            } else if (name.substr(0, 10) == "cone_right") {
                 right.push_back(entity);
-            } else if (name == "cone_orange::link") {
+            } else if (name.substr(0, 11) == "cone_orange") {
                 orange.push_back(entity);
-            } else if (name == "cone_orange_big::link") {
+            } else if (name.substr(0, 15) == "cone_orange_big") {
                 orange_big.push_back(entity);
             } else if (name.find("tk_device") != std::string::npos) {
                 if (name.find("0") != std::string::npos or name.find("1") != std::string::npos) {

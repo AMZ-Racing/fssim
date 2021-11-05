@@ -195,11 +195,21 @@ void ConeSensorModel::updateTrack() {
         const auto child  = model_->GetChild(i);
         const auto entity = boost::dynamic_pointer_cast<gazebo::physics::Entity>(child);
 
+        /*
         if (entity->GetName() == "cone_left::link") {
             left_.push_back(entity);
         } else if (entity->GetName() == "cone_right::link") {
             right_.push_back(entity);
         } else if (entity->GetName() == "cone_orange::link" or entity->GetName() == "cone_orange_big::link") {
+            orange_.push_back(entity);
+        }
+        */
+
+        if (entity->GetName().substr(0, 9) == "cone_left") {
+            left_.push_back(entity);
+        } else if (entity->GetName().substr(0, 10) == "cone_right") {
+            right_.push_back(entity);
+        } else if (entity->GetName().substr(0, 11) == "cone_orange" or entity->GetName().substr(0, 15) == "cone_orange_big") {
             orange_.push_back(entity);
         }
     }
