@@ -248,7 +248,11 @@ void Vehicle::publishTf(const State &x) {
     transform.setRotation(q);
 
     // Send TF
-    tf_br_.sendTransform(tf::StampedTransform(transform, ros::Time::now(), "/fssim_map", "/fssim/vehicle/base_link"));
+    ros::Time tf_time = ros::Time::now();
+    if (last_tf_time_ < tf_time) {
+        tf_br_.sendTransform(tf::StampedTransform(transform, tf_time, "/fssim_map", "/fssim/vehicle/base_link"));
+        last_tf_time_ = tf_time;
+    }
 }
 
 double Vehicle::getFx(const State &x, const Input &u) {

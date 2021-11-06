@@ -134,6 +134,7 @@ class Vehicle {
 
     // ROS TF
     tf::TransformBroadcaster tf_br_;
+    ros::Time last_tf_time_;
 
     /// Pointer to the parent model
     physics::ModelPtr model;
