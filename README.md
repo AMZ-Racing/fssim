@@ -14,6 +14,11 @@ FSSIM is developed by [Juraj Kabzan](https://www.linkedin.com/in/juraj-kabzan-14
 # How to Run It in your Workspace
 0. Install `sudo apt install ros-noetic-desktop-full` and `sudo apt install python3-catkin-tools`
 1. Clone this repository to an existing **ROS Workspace** initialized with `catkin init`
+`mkdir ws
+mkdir ws/src
+cd ws
+catkin init
+git clone https://github.com/Huguet57/fssim-2021.git src`
 2. Run `cd src/fssim` from the workspace.
 3. Run `./update_dependencies.sh`, you will need to approve multiple packages to be installed
 4. Run `catkin build`
