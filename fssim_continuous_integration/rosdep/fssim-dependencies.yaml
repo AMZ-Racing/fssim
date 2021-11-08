@@ -15,6 +15,6 @@ fssim-xacro:
 fssim-shapely:
   ubuntu: [python3-shapely]
 fssim-subprocess32:
-  ubuntu: [python3-subprocess32]
+  ubuntu: [python-subprocess32]
 fsssim-python-lxml:
   ubuntu: [python3-lxml]
