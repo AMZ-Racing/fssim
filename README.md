@@ -18,8 +18,9 @@ FSSIM is developed by [Juraj Kabzan](https://www.linkedin.com/in/juraj-kabzan-14
 `mkdir ws/src` ->
 `cd ws` ->
 `catkin init` ->
-`git clone https://github.com/Huguet57/fssim-2021.git src`
-2. Run `cd src/fssim` from the workspace.
+`cd src` ->
+`git clone https://github.com/Huguet57/fssim-2021.git`
+2. Go to the `src/fssim` folder.
 3. Run `./update_dependencies.sh`, you will need to approve multiple packages to be installed
 4. Run `catkin build`
 5. Source the workspace `source devel/setup.bash`
