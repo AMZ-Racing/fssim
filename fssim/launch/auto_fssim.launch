@@ -7,6 +7,6 @@
         <arg name="fssim_config" value="$(arg fssim_config)"/>
     </include>
 
-    <!-- <include file="$(find fssim)/launch/rviz.launch"/> -->
+    <include file="$(find fssim)/launch/rviz.launch"/>
 
 </launch>
