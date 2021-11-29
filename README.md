@@ -23,7 +23,7 @@ FSSIM is developed by [Juraj Kabzan](https://www.linkedin.com/in/juraj-kabzan-14
 2. Go to the `src/fssim` folder.
 3. Run `./update_dependencies.sh`, you will need to approve multiple packages to be installed
 4. Run `catkin build`
-5. Source the workspace `source devel/setup.bash`
+5. Go into the root of the workspace (in this case the `ws` folder,  where the `devel` folder is) and source the workspace `source devel/setup.bash`
 6. After successful building, run the simulator with `roslaunch fssim auto_fssim.launch`. RVIZ window will start. NOTE: You might need to untick and tick `FSSIM Track` and `RobotModel` in RVIZ in order to load the STL files. NOTE: This ` [Wrn] [ModelDatabase.cc:339] Getting models from[http://gazebosim.org/models/]. This may take a few seconds.` might take up to a minute when starting for the first time.
 7. The terminal will inform you what is happening. The loading time takes around 20 seconds. When `Sending RES GO` will show up in the terminal, you can start controlling the vehicle with `/fssim/cmd` topic.
 
