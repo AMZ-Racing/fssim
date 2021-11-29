@@ -125,11 +125,11 @@ class TrackEditorPlugin(Plugin):
     def pushButton_skidpad(self):
         id =  self._widget.toolBoxDiscipline.currentIndex()
         if id is 0:
-            print "Generating SKIDPAD"
+            print("Generating SKIDPAD")
             self._cones_view.generate_skipdpad(self._widget)
             self._widget.line_edit_track_name.setText("skidpad")
         elif id is 1:
-            print "Generating Acceleration"
+            print("Generating Acceleration")
             self._cones_view.generate_acceleration(self._widget)
             self._widget.line_edit_track_name.setText("acceleration")
 
@@ -141,7 +141,7 @@ class TrackEditorPlugin(Plugin):
             self._cones_view.snapshots.import_snapshots(event)
             self._cones_view.change_view(2)
             self._widget.horSlid_snap.setMaximum(self._cones_view.snapshots.max)
-            print "INFO: Snapshot imported"
+            print("INFO: Snapshot imported")
 
     def handle_input_snap(self):
         if not self._topics_for_snpshot_found:

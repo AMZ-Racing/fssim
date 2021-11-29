@@ -28,7 +28,7 @@ topics:
     -   topic: "/lidar/cones"
         expected_frequency: 5
     -   topic: "/fssim/cmd"
-        expected_frequency: 5
+        expected_frequency: 100
 
 
 

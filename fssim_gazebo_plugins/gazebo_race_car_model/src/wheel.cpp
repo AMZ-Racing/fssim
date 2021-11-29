@@ -41,7 +41,7 @@ Wheel::Wheel(gazebo::physics::ModelPtr &_model,
     unsigned int id = 0;
     radius = getCollisionRadius(joint->GetChild()->GetCollision(id));
 
-    center_pos_ = joint->GetChild()->GetCollision(id)->GetWorldPose().pos;
+    center_pos_ = joint->GetChild()->GetCollision(id)->WorldPose().Pos();
 }
 
 double Wheel::getCollisionRadius(gazebo::physics::CollisionPtr _coll) {
@@ -73,7 +73,7 @@ double Wheel::getFy(const double alpha, const double Fz) {
     return Fy;
 }
 
-const math::Vector3 &Wheel::getCenterPos() const { return center_pos_; }
+const ignition::math::Vector3d &Wheel::getCenterPos() const { return center_pos_; }
 
 }  // namespace fssim
 }  // namespace gazebo

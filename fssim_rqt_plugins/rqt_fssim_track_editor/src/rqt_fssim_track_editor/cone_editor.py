@@ -236,20 +236,20 @@ class TrackViewScene(QGraphicsScene):
         tree.write(gazebo_models + ".sdf", pretty_print=True, xml_declaration=True, encoding='UTF-8')
         self.track.export_to_yaml(self.model_path + "/track/tracks_yaml", name,create_dir=False)
 
-        print "[INFO] Saving track to: ",gazebo_models + ".sdf"
+        print("[INFO] Saving track to: ",gazebo_models + ".sdf")
 
     def handle_btn_import(self, path,outside,inside,center):
         if path.endswith('.bag'):
             self.track.load_track_from_bag(path,outside,inside,center)
             self.update_all()
         else:
-            print "[ERROR] Wrong file extension. Only ROSBAG supported"
+            print("[ERROR] Wrong file extension. Only ROSBAG supported")
 
     def on_mouse_up(self, event):
         pass
 
     def on_mouse_move(self, event):
-        print event
+        print(event)
 
     def on_mouse_down(self, event):
         if not self.enable_editing:

@@ -64,6 +64,7 @@ def generate_track_model(track_name):
     xacro_file = fssim_gazebo + '/models/track/model.xacro'
     xacro_out_file = fssim_gazebo + '/models/track/model.config'
     command = "xacro --inorder {} track_name:={} > {}".format(xacro_file, track_name, xacro_out_file)
+    rospy.logwarn("%s", command)
     xacro_proccess = subprocess.check_output(command, shell = True, stderr = subprocess.STDOUT)
 
 
@@ -110,7 +111,7 @@ class AutomatedRes:
         self.pub_initialpose = rospy.Publisher('/initialpose', PoseWithCovarianceStamped, queue_size = 1)
 
         with open(arg.config, 'r') as f:
-            self.sim_config = yaml.load(f)
+            self.sim_config = yaml.load(f, Loader=yaml.FullLoader)
         self.sim_config_id = arg.sim_id
 
         self.checks_is_in_track = self.sim_config["res"]["checks"]["is_in_track"]
@@ -160,7 +161,7 @@ class AutomatedRes:
             return
 
         # Send initial position if available
-        if self.track_checks.track_details is not None:
+        if self.track_checks.track_details != None:
             rospy.logwarn("Setting Initial Pose")
             pose_init = PoseWithCovarianceStamped()
             pose_init.pose.pose.position, pose_init.pose.pose.orientation = self.track_checks.get_track_init_pos()
@@ -174,7 +175,7 @@ class AutomatedRes:
             t.transform.translation.y = 0.0
             t.transform.rotation.w = 1.0
             self.br.sendTransform(t)
-
+        
         # Wait for short time
         rospy.sleep(5.0)
 
@@ -185,7 +186,7 @@ class AutomatedRes:
         # Launch Recording
         raw_rosbag_launch_cmd = self.sim_config['launch_file']['rosbag_record']
         gen_rosbag_name = self.statistics.get_rosbag_name(self.output_folder, self.sim_config_id)
-        if gen_rosbag_name is not None:
+        if gen_rosbag_name != None:
             self.cmd_rosbag = self.launch_file(raw_rosbag_launch_cmd.format(gen_rosbag_name))
 
         # Wait for short time
@@ -198,7 +199,7 @@ class AutomatedRes:
             is_inside_of_track = self.track_checks.is_car_in_track()
 
             if not is_inside_of_track:
-                rospy.logwarn("Car Is not in the track")
+                rospy.logwarn("Car != in the track")
                 rospy.sleep(0.5)
 
             # Stop sim after max time achieved
@@ -209,6 +210,9 @@ class AutomatedRes:
 
             # Terminate simulation is any of conditions are met
             stop_simulation = not is_inside_of_track or time_expired or self.ecu.state == EcuState.FINNISHED_DISCIPLINE or request_stop_given_mission
+
+            # Edit: Do not stop simulation
+            stop_simulation = False
 
             if not stop_simulation and not self.sim_health.vehicle_started:
 
@@ -226,7 +230,8 @@ class AutomatedRes:
                 self.sim_health.vehicle_started = True
 
             elif not is_inside_of_track and self.sim_health.vehicle_started or stop_simulation:
-
+                
+                """
                 rospy.logwarn("Sending EMERGENCY STOP")
                 self.send_res(False)
 
@@ -236,13 +241,16 @@ class AutomatedRes:
                 # Request shutdown of all commands
                 self.sim_health.request_shutdown = True
                 break
+                """
+                
+                print("We don't want to stop the simulation")
 
             # Stream health of FSSIM
             self.pub_health.publish(self.sim_health)
             try:
                 rate.sleep()
             except:
-                print "ROSCORE has been killed during sleep"
+                print("ROSCORE has been killed during sleep")
 
         # Write statisctics into a file
         self.statistics.write_report(self.sim_config_id, self.ecu.state == EcuState.FINNISHED_DISCIPLINE)
@@ -258,7 +266,7 @@ class AutomatedRes:
     def sim_time_expired(self):
         time_expired = False
         repetition_time = rospy.Time.now().to_sec() - self.start_time
-        if 'kill_after' in self.sim_config and self.sim_config['kill_after'] is not 0:
+        if 'kill_after' in self.sim_config and self.sim_config['kill_after'] != 0:
             if self.sim_health.vehicle_started and repetition_time > self.sim_config['kill_after']:
                 time_expired = True
                 rospy.logerr("Simulation Time EXPIRED with: %f", repetition_time)
@@ -274,7 +282,7 @@ class AutomatedRes:
         # type: (dict, str) -> None
 
         # We are sure the config is going to be in fssim_description
-        if pkg_config_storage is None:
+        if pkg_config_storage == None:
             pkg_config_storage = 'fssim_description'
 
         # Create Track Config
@@ -289,7 +297,7 @@ class AutomatedRes:
         if os.path.isfile(track_detailed_description):
             rospy.logwarn("Found detailed description")
             with open(track_detailed_description, 'r') as f:
-                self.track_details = yaml.load(f)
+                self.track_details = yaml.load(f, Loader=yaml.FullLoader)
             self.track_checks.track_details = self.track_details
 
         # Parse Config paths
@@ -348,7 +356,7 @@ class AutomatedRes:
         :return: Command which was launched
         :rtype: Command
         '''
-        if launch_file is not None:
+        if launch_file != None:
             process = Command(launch_file)
             process.run()
             rospy.logwarn("LAUNCHING: \n%s", launch_file)
@@ -398,9 +406,9 @@ class AutomatedRes:
         Terminate everything was has been launched
         :return: None
         '''
-        if self.cmd_rosbag is not None:
+        if self.cmd_rosbag != None:
             self.cmd_rosbag.ensure_terminated()
-        if self.cmd_autonomous_system is not None:
+        if self.cmd_autonomous_system != None:
             self.cmd_autonomous_system.ensure_terminated()
         self.cmd_fssim.ensure_terminated()
 
@@ -441,7 +449,7 @@ def start_roscore():
     except socket.error:
         roscore.run()
         time.sleep(1.0)  # wait a bit to be sure the roscore is really launched
-        print '\033[93m', "ROSCORE STARTED HERE", '\033[0m'
+        print('\033[93m', "ROSCORE STARTED HERE", '\033[0m')
     return roscore
 
 
@@ -455,7 +463,7 @@ if __name__ == '__main__':
     parser.add_argument("--output", dest = "output", metavar = "FOLDER", help = "Output YAML file")
     parser.add_argument("--id", dest = "sim_id", help = "Config ID in YAML file", default = 0, type = int)
     args, unknown = parser.parse_known_args()
-    args.output = os.path.abspath(args.output) if args.output is not None else None
+    args.output = os.path.abspath(args.output) if args.output != None else None
 
     roscore = start_roscore()
 
@@ -471,4 +479,4 @@ if __name__ == '__main__':
 
     roscore.ensure_terminated()
 
-    print "THIS REPETITION IS OVER"
+    print("THIS REPETITION IS OVER")

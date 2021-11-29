@@ -52,7 +52,7 @@ class EcuState(Enum):
 class Ecu:
 
     def __init__(self):
-        print "ECU"
+        print("ECU")
         self.state = EcuState.NOT_STARTED
         self.car_state_stoped = 0.0
 

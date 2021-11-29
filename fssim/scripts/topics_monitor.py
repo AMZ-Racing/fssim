@@ -51,13 +51,13 @@ def get_rostopic_hz(topic, window_size=-1, filter_expr=None, use_wtime=False, av
     rt = rostopic.ROSTopicHz(window_size, filter_expr=filter_expr, use_wtime=use_wtime)
     msg_class, real_topic, _ = rostopic.get_topic_class(topic, blocking=False)
 
-    if real_topic is None:
+    if real_topic == None:
         return 0.0
 
     # pause hz until topic is published
     # we use a large buffer size as we don't know what sort of messages we're dealing with.
     # may parameterize this in the future
-    if filter_expr is not None:
+    if filter_expr != None:
         # have to subscribe with topic_type
         rospy.Subscriber(real_topic, msg_class, rt.callback_hz, callback_args=topic)
     else:
@@ -107,7 +107,7 @@ class MonitorTopics():
             try:
                 rate.sleep()
             except:
-                print "ROSCORE has been killed during sleep"
+                print("ROSCORE has been killed during sleep")
 
     def check_topics_hz(self, topic_config, precision=10.0):
         success = True
@@ -135,7 +135,7 @@ if __name__ == '__main__':
     topics_config = rospy.get_param("~topics_frequency_config")
 
     with open(topics_config, 'r') as f:
-        topics_frequency_config = yaml.load(f)
+        topics_frequency_config = yaml.load(f, Loader=yaml.FullLoader)
 
     topic_monitor = MonitorTopics(topics_frequency_config['topics'])
     topic_monitor.run()

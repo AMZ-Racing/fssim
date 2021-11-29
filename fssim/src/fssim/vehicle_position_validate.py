@@ -202,7 +202,7 @@ class VehiclePositionCheck:
             self.end_A = self.start_A
             self.end_B = self.start_B
 
-        if len(self.cones_left) is 0 or len(self.cones_right) is 0:
+        if len(self.cones_left) == 0 or len(self.cones_right) == 0:
             return
         polygon_left = Polygon(self.cones_left)
         polygon_right = Polygon(self.cones_right)
@@ -213,5 +213,5 @@ class VehiclePositionCheck:
         else:
             self.polygon_outside = polygon_left
             self.polygon_inside = polygon_right
-
+        
         self.received_track = True

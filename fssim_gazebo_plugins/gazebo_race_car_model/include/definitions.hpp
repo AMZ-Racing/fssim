@@ -42,6 +42,7 @@ struct State {
 
     std::stringstream &operator<<(std::stringstream &os) {
         os << getString();
+        return os;
     }
 
     inline std::string getString() const {

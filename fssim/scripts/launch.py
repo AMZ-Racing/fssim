@@ -46,7 +46,7 @@ class Launcher:
 
     def __init__(self, args):
         with open(args.config, 'r') as f:
-            self.config = yaml.load(f)
+            self.config = yaml.load(f, Loader=yaml.FullLoader)
         self.args = args
 
     def setup_report_file(self):
@@ -66,16 +66,16 @@ class Launcher:
         self.setup_report_file()
 
         for i, settings in enumerate(self.config['repetitions']):
-            print "STARITNG REPETITION: ", i
+            print("STARITNG REPETITION: ", i)
             path = rospkg.RosPack().get_path("fssim") + "/scripts/automated_res.py"
             launching_script = "python {} --config {} --id {} --output {} ".format(path, self.args.config, i, self.args.output)
-            print launching_script
+            print(launching_script)
             self.fssim_cmd = Command(launching_script)
             self.fssim_cmd.run()
             self.fssim_cmd.join()
             time.sleep(5.0)
 
-        print "EXITING LAUNCHER SCRIPT"
+        print("EXITING LAUNCHER SCRIPT")
         sys.exit(0)
 
 
@@ -85,26 +85,26 @@ if __name__ == '__main__':
     parser.add_argument("--output", dest = "output", help = "Output YAML file")
     args = parser.parse_args()
 
-    print '\033[91m' + " Welcome to:                                                                                        " + '\033[0m'
-    print '\033[91m' + "                  `--.`                                                                             " + '\033[0m'
-    print '\033[91m' + "                  +hyhys+:`                                                                         " + '\033[0m'
-    print '\033[91m' + "                  +yyyyyyyhyo:.                                                                     " + '\033[0m'
-    print '\033[91m' + "                  +yyyyyyyyyyyhyo/-`                                                                " + '\033[0m'
-    print '\033[91m' + "  yyyyyyyyyyyyyyyyyyyysoo++ooosyyhyys/                                                              " + '\033[0m'
-    print '\033[91m' + "  yyyyyyyyyyyyyyyys:.           :hhyyy+                                                             " + '\033[0m'
-    print '\033[91m' + " `yyyyyyyyyyyyyyy:              -hhyyys                                                             " + '\033[0m'
-    print '\033[91m' + " `yyyyyyyo------.        -://:-.`yyyyys                                                             " + '\033[0m'
-    print '\033[91m' + " `hyyyyyh/              /hyhyyyyyyhyyys-//-                  -ssooo++//:--..`                       " + '\033[0m'
-    print '\033[91m' + " .hyyyyyy+````````       :syyyyyyyyyyyyhhyy+`              .+yyyyyyyyyhyhhyhhyyysoo+/:-.`           " + '\033[0m'
-    print '\033[91m' + " .hyyyyyyhhhhhhhhy:        -oyyyyyyyyyyyyyyyyo+::::::://+oyhyyyyyyyyyyyyyyyyyyyyyyyyyyyyhyyo+/-`    " + '\033[0m'
-    print '\033[91m' + " -yyyyyyyyyyyyyyyyys:`       `+yyyyyyyyyyyyyyyssshhyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy-   " + '\033[0m'
-    print '\033[91m' + " /yyyyyyyyyyyyyyyyyyyy/`       .syhyyyyyyyyyyy/:/hyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy/    " + '\033[0m'
-    print '\033[91m' + " +hyyyyyy.`      `:yyyyy+       `yhyyyy:  ../y` .h/  .   -`  .yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyo`     " + '\033[0m'
-    print '\033[91m' + " oyyyyyyy`        -yyyyyo`       yyyyyh+. -+yy  -h:  os  -y.  yyyyyyyyyyyyyyyyyyyyyyyyyyyyys-       " + '\033[0m'
-    print '\033[91m' + " shyyyyyy            ``         /yhyyys:/.  os  -y-  yo  /y. `yyyyyyyyyyyyyyhyyhysshyyyyyyy+/::--`  " + '\033[0m'
-    print '\033[91m' + " yyyyyyyy                     .+yhhyhyy++++syy++oyo+oys++syo+oyyyyyyhyyyyyhhy+-`  -++++++++++++++.  " + '\033[0m'
-    print '\033[91m' + " ........                   -syyyyyo///////+/+++++++++++++++++++++++oyyyyyys-                       " + '\033[0m'
-    print '\033[91m' + "                             `.--.`                                  `-::-`                         " + '\033[0m'
+    print('\033[91m' + " Welcome to:                                                                                        " + '\033[0m')
+    print('\033[91m' + "                  `--.`                                                                             " + '\033[0m')
+    print('\033[91m' + "                  +hyhys+:`                                                                         " + '\033[0m')
+    print('\033[91m' + "                  +yyyyyyyhyo:.                                                                     " + '\033[0m')
+    print('\033[91m' + "                  +yyyyyyyyyyyhyo/-`                                                                " + '\033[0m')
+    print('\033[91m' + "  yyyyyyyyyyyyyyyyyyyysoo++ooosyyhyys/                                                              " + '\033[0m')
+    print('\033[91m' + "  yyyyyyyyyyyyyyyys:.           :hhyyy+                                                             " + '\033[0m')
+    print('\033[91m' + " `yyyyyyyyyyyyyyy:              -hhyyys                                                             " + '\033[0m')
+    print('\033[91m' + " `yyyyyyyo------.        -://:-.`yyyyys                                                             " + '\033[0m')
+    print('\033[91m' + " `hyyyyyh/              /hyhyyyyyyhyyys-//-                  -ssooo++//:--..`                       " + '\033[0m')
+    print('\033[91m' + " .hyyyyyy+````````       :syyyyyyyyyyyyhhyy+`              .+yyyyyyyyyhyhhyhhyyysoo+/:-.`           " + '\033[0m')
+    print('\033[91m' + " .hyyyyyyhhhhhhhhy:        -oyyyyyyyyyyyyyyyyo+::::::://+oyhyyyyyyyyyyyyyyyyyyyyyyyyyyyyhyyo+/-`    " + '\033[0m')
+    print('\033[91m' + " -yyyyyyyyyyyyyyyyys:`       `+yyyyyyyyyyyyyyyssshhyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy-   " + '\033[0m')
+    print('\033[91m' + " /yyyyyyyyyyyyyyyyyyyy/`       .syhyyyyyyyyyyy/:/hyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy/    " + '\033[0m')
+    print('\033[91m' + " +hyyyyyy.`      `:yyyyy+       `yhyyyy:  ../y` .h/  .   -`  .yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyo`     " + '\033[0m')
+    print('\033[91m' + " oyyyyyyy`        -yyyyyo`       yyyyyh+. -+yy  -h:  os  -y.  yyyyyyyyyyyyyyyyyyyyyyyyyyyyys-       " + '\033[0m')
+    print('\033[91m' + " shyyyyyy            ``         /yhyyys:/.  os  -y-  yo  /y. `yyyyyyyyyyyyyyhyyhysshyyyyyyy+/::--`  " + '\033[0m')
+    print('\033[91m' + " yyyyyyyy                     .+yhhyhyy++++syy++oyo+oys++syo+oyyyyyyhyyyyyhhy+-`  -++++++++++++++.  " + '\033[0m')
+    print('\033[91m' + " ........                   -syyyyyo///////+/+++++++++++++++++++++++oyyyyyys-                       " + '\033[0m')
+    print('\033[91m' + "                             `.--.`                                  `-::-`                         " + '\033[0m')
 
     fssim = Launcher(args)
     fssim.start()

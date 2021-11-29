@@ -1,20 +1,20 @@
 fssim-python-wstool:
-  ubuntu: [python-wstool]
+  ubuntu: [python3-wstool]
 fssim-python-pip:
-  ubuntu: [python-pip]
+  ubuntu: [python3-pip]
 fssim-python-catkin-tools:
-  ubuntu: [python-catkin-tools]
+  ubuntu: [python3-catkin-tools]
 fssim-python-rospkg:
-  ubuntu: [python-rospkg]
+  ubuntu: [python3-rospkg]
 fssim-python-empy:
-  ubuntu: [python-empy]
+  ubuntu: [python3-empy]
 fssim-pcl-ros:
-  ubuntu: [ros-kinetic-pcl-ros]
+  ubuntu: [ros-noetic-pcl-ros]
 fssim-xacro:
-  ubuntu: [ros-kinetic-xacro]
+  ubuntu: [ros-noetic-xacro]
 fssim-shapely:
-  ubuntu: [python-shapely]
+  ubuntu: [python3-shapely]
 fssim-subprocess32:
   ubuntu: [python-subprocess32]
 fsssim-python-lxml:
-  ubuntu: [python-lxml]
+  ubuntu: [python3-lxml]
